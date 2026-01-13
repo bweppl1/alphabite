@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* backgrounds */
+  --color-vanilla: #fff6d5;
+  --color-darkvanilla: #f0e9c0;
+
+  /* font */
+  --color-charcoal: #3a3a3a;
+  --color-lightcharcoal: #6b6b6b;
+  --font-atkin: "Atkinson Hyperlegible", sans-serif;
+
+  /* highlights */
+  --color-dgreen: #2c6967;
+  --color-lgreen: #4db791;
+  --color-bananayellow: #f2cc5e;
+  --color-michelangeloorange: #f89940;
+  --color-raphaelred: #e05f59;
+}
