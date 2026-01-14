@@ -1,11 +1,30 @@
+import { useState, useEffect } from "react";
+
 const ReadingCard = () => {
+  const [userInput, setUserInput] = useState("");
+  const [currentWordData, setCurrentWordData] = useState("");
+  const [currentRound, setCurrentRound] = useState(1);
+
+  // load first word on initial render
+  useEffect(() => {
+    setCurrentWord("Dad");
+  }, []);
+
+  // generating a new word
+  const fetchNewWord = () => {};
+
+  // checking answer
   const checkAnswer = () => {};
+
+  // passing word
+  const passWord = () => {};
+
   return (
     <div className="max-w-5xl flex flex-col text-center mx-auto">
       <h1 className="text-4xl p-4 md:p-8 font-black text-raphaelred tracking-wide">
         READING
       </h1>
-      <div className="w-3xl bg-darkvanilla rounded-xl p-2 md:p-5 flex flex-col">
+      <div className="max-w-3xl w-full bg-darkvanilla rounded-xl p-2 md:p-5 flex flex-col">
         {/* word image */}
         <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
           image placeholder
@@ -13,6 +32,8 @@ const ReadingCard = () => {
         {/* user input */}
         <input
           placeholder="type here"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
           className="border-0 p-2 md:p-4 mx-auto rounded-xl text-2xl md:text-5xl bg-vanilla"
         />
         {/* action buttons */}
