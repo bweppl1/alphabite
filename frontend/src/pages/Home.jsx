@@ -1,12 +1,10 @@
 const Home = () => {
   return (
-    <div className="flex flex-row">
-      Home
-      <div className="w-50 h-50 m-5 rounded bg-raphaelred"></div>
-      <div className="w-50 h-50 m-5 rounded bg-dgreen"></div>
-      <div className="w-50 h-50 m-5 rounded bg-lgreen"></div>
-      <div className="w-50 h-50 m-5 rounded bg-michelangeloorange"></div>
-      <div className="w-50 h-50 m-5 rounded bg-bananayellow"></div>
+    <div className="w-screen">
+      <div className="flex flex-col md:flex-row">
+        <div className="bg-lgreen w-1/2 h-50 md:h-100">Reading</div>
+        <div className="bg-bananayellow w-1/2 h-50 md:h-100">Spelling</div>
+      </div>
     </div>
   );
 };
