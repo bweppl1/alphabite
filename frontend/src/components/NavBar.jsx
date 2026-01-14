@@ -23,8 +23,12 @@ const NavBar = () => {
           <Link to="/" className="hover:-translate-y-1">
             Home
           </Link>
-          <Link to="/game">Play</Link>
-          <Link to="/stats">Stats</Link>
+          <Link to="/game" className="hover:-translate-y-1">
+            Play
+          </Link>
+          <Link to="/stats" className="hover:-translate-y-1">
+            Stats
+          </Link>
         </div>
 
         {/* mobile nav */}
