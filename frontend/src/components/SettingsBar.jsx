@@ -8,11 +8,14 @@ const SettingsBar = () => {
 
   return (
     <div>
-      <div className="max-w-5xl mx-auto flex flex-row border-b-3 border-charcoal">
-        <div className="bg-charcoal text-vanilla rounded-t-xl p-2">
-          <h1 onClick={toggleSettingsWindow}>Settings v</h1>
+      <div className="max-w-5xl mx-auto flex flex-row">
+        <div
+          className={`bg-charcoal text-vanilla cursor-pointer rounded-t-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
+          onClick={toggleSettingsWindow}
+        >
+          <h1>Settings v</h1>
         </div>
-        <div className="bg-vanilla text-charcoal p-2 text-center flex-1">
+        <div className="bg-vanilla text-charcoal p-2 text-center flex-1 border-b-3 border-charcoal">
           Round 1/10
         </div>
       </div>
