@@ -1,59 +1,102 @@
 import { useState, useEffect } from "react";
+import ExperienceBar from "./ExperienceBar";
 
 const ReadingCard = () => {
+  const [gameActive, setGameActive] = useState(true);
   const [userInput, setUserInput] = useState("");
   const [currentWordData, setCurrentWordData] = useState("");
   const [currentRound, setCurrentRound] = useState(1);
+  const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
 
   // load first word on initial render
   useEffect(() => {
-    setCurrentWord("Dad");
+    setCurrentWordData("Dad");
   }, []);
+
+  // temp data
+  const words = [
+    "tree",
+    "dad",
+    "mom",
+    "happy",
+    "run",
+    "ball",
+    "sun",
+    "moon",
+    "car",
+    "dog",
+  ];
+
+  // temp word fetch
+  const fetchWord = () => {
+    const randomWord = words[Math.floor(Math.random() * words.length())];
+    setCurrentWordData(randomWord);
+  };
+
+  // update round display and check for game end after each round
+  useEffect(() => {
+    if (currentRound > 10) {
+      setGameActive(false);
+    }
+    setRoundDisplay(`Round ${currentRound}/10`);
+  }, [currentRound]);
 
   // generating a new word
   const fetchNewWord = () => {};
 
   // checking answer
-  const checkAnswer = () => {};
+  const checkAnswer = () => {
+    if (currentWordData === userInput) {
+      // correct answer tasks
+    }
+    setCurrentRound(currentRound + 1);
+    fetchWord();
+  };
 
   // passing word
   const passWord = () => {};
+  if (gameActive) {
+    return (
+      <div className="w-full md:max-w-5xl flex flex-col text-center mx-auto p-2">
+        <h2 className="text-xl md:text-xl text-vanilla bg-dgreen px-6 py-2 rounded-xl">
+          {roundDisplay}
+        </h2>
+        <ExperienceBar round={currentRound} />
+        <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl p-2 md:p-5 flex flex-col">
+          {/* word image */}
+          <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
+            {currentWordData}
+          </div>
 
-  return (
-    <div className="max-w-5xl flex flex-col text-center mx-auto">
-      <h1 className="text-4xl p-4 md:p-8 font-black text-raphaelred tracking-wide">
-        READING
-      </h1>
-      <div className="max-w-3xl w-full bg-darkvanilla rounded-xl p-2 md:p-5 flex flex-col">
-        {/* word image */}
-        <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-          image placeholder
-        </div>
-        {/* user input */}
-        <input
-          placeholder="type here"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          className="border-0 p-2 md:p-4 mx-auto rounded-xl text-2xl md:text-5xl bg-vanilla"
-        />
-        {/* action buttons */}
-        <div className="flex flex-row w-full gap-5 py-2 md:py-4 justify-center">
-          <h2
-            onClick={checkAnswer}
-            className="py-2 px-6 bg-lgreen rounded-xl font-charcoal cursor-pointer"
-          >
-            Submit
-          </h2>
-          <h2
-            onClick={checkAnswer}
-            className="py-2 px-6 bg-raphaelred rounded-xl font-lightcharcoal cursor-pointer"
-          >
-            Pass
-          </h2>
+          {/* user input */}
+          <input
+            placeholder="type here"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            className="focus:outline-0 caret-lightcharcoal p-2 md:p-4 mx-auto rounded-xl text-4xl text-charcoal md:text-6xl w-full bg-vanilla"
+          />
+
+          {/* action buttons */}
+          <div className="flex flex-row w-full gap-5 py-2 md:py-4 justify-center">
+            <h2
+              onClick={checkAnswer}
+              className="py-2 px-6 bg-lgreen rounded-xl font-charcoal cursor-pointer"
+            >
+              Submit
+            </h2>
+            <h2
+              onClick={passWord}
+              className="py-2 px-6 bg-raphaelred rounded-xl font-lightcharcoal cursor-pointer"
+            >
+              Pass
+            </h2>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <div>Game Over</div>;
 };
 
 export default ReadingCard;

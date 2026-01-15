@@ -1,7 +1,7 @@
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Game from "./pages/Game";
+import ReadingGame from "./pages/ReadingGame";
 import Stats from "./pages/Stats";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/reading_game" element={<ReadingGame />} />
         <Route path="/stats" element={<Stats />} />
       </Routes>
       <Footer />

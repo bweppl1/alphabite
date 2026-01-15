@@ -10,18 +10,20 @@ const SettingsBar = () => {
     <div>
       <div className="max-w-5xl mx-auto flex flex-row">
         <div
-          className={`bg-charcoal text-vanilla cursor-pointer rounded-t-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
+          className={`bg-dgreen text-vanilla cursor-pointer rounded-t-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
           onClick={toggleSettingsWindow}
         >
-          <h1>Settings v</h1>
+          <h1 className="mx-6">Settings</h1>
         </div>
-        <div className="bg-vanilla text-charcoal p-2 text-center flex-1 border-b-3 border-charcoal">
-          Round 1/10
+        <div className="bg-vanilla p-2 flex-1 border-b-3 border-dgreen">
+          <h1 className="text-4xl font-black text-dgreen tracking-wide">
+            READING
+          </h1>
         </div>
       </div>
       {/* settings window */}
       <div
-        className={`border mx-auto border-charcoal bg-charcoal p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
+        className={`border mx-auto border-dgreen bg-dgreen p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
       >
         <div className="rounded-b-xl rounded-tl-xl bg-vanilla text-charcoal h-50 p-4">
           Settings Window

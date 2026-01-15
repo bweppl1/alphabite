@@ -1,13 +1,14 @@
+import { useState } from "react";
 import SettingsBar from "../components/SettingsBar";
 import ReadingCard from "../components/ReadingCard";
 
-const Game = () => {
+const ReadingGame = () => {
   return (
     <div className="flex flex-col bg-vanilla p-2">
-      <SettingsBar />
+      <SettingsBar gameType="Reading" />
       <ReadingCard />
     </div>
   );
 };
 
-export default Game;
+export default ReadingGame;

@@ -19,29 +19,33 @@ const NavBar = () => {
           Alpha<span className="font-black">Bite</span>
         </Link>
         {/* desktop nav */}
-        <div className="hidden md:flex flex-row gap-5 text-lg justify-center">
-          <Link to="/" className="hover:-translate-y-1">
+        <div className="hidden md:flex flex-row gap-5 text-lg text-lightcharcoal justify-center">
+          <Link to="/" className="hover:text-black">
             Home
           </Link>
-          <Link to="/game" className="hover:-translate-y-1">
-            Play
+          <Link to="/reading_game" className="hover:text-black">
+            Read
           </Link>
-          <Link to="/stats" className="hover:-translate-y-1">
+          <Link to="/stats" className="hover:text-black">
             Stats
           </Link>
         </div>
 
         {/* mobile nav */}
         <div
-          className={`w-screen absolute top-20 left-0 text-center p-2 bg-charcoal opacity-98 flex flex-col gap-5 text-lg text-vanilla justify-center ${navOpen ? "" : "hidden"}`}
+          className={`md:hidden w-screen absolute top-20 left-0 text-center p-2 bg-charcoal opacity-98 flex flex-col gap-5 text-lg text-vanilla justify-center ${navOpen ? "" : "hidden"}`}
         >
-          <Link to="/" className="hover:font-black">
+          <Link to="/" className="hover:font-black" onClick={toggleNav}>
             Home
           </Link>
-          <Link to="/game" className="hover:font-black">
-            Play
+          <Link
+            to="/reading_game"
+            className="hover:font-black"
+            onClick={toggleNav}
+          >
+            Read
           </Link>
-          <Link to="/stats" className="hover:font-black">
+          <Link to="/stats" className="hover:font-black" onClick={toggleNav}>
             Stats
           </Link>
         </div>
