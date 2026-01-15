@@ -2,6 +2,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ReadingGame from "./pages/ReadingGame";
+import SpellingGame from "./pages/SpellingGame";
 import Stats from "./pages/Stats";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/reading_game" element={<ReadingGame />} />
+        <Route path="/spelling_game" element={<SpellingGame />} />
         <Route path="/stats" element={<Stats />} />
       </Routes>
       <Footer />

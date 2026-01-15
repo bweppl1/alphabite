@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import ExperienceBar from "./ExperienceBar";
 
-const ReadingCard = () => {
+const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);
   const [userInput, setUserInput] = useState("");
   const [currentWordData, setCurrentWordData] = useState("");
   const [currentRound, setCurrentRound] = useState(1);
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
+  const [isCorrect, setIsCorrect] = useState(null);
 
   // load first word on initial render
   useEffect(() => {
-    setCurrentWordData("Dad");
+    fetchWord();
   }, []);
 
   // temp data
@@ -29,7 +30,7 @@ const ReadingCard = () => {
 
   // temp word fetch
   const fetchWord = () => {
-    const randomWord = words[Math.floor(Math.random() * words.length())];
+    const randomWord = words[Math.floor(Math.random() * words.length)];
     setCurrentWordData(randomWord);
   };
 
@@ -41,20 +42,26 @@ const ReadingCard = () => {
     setRoundDisplay(`Round ${currentRound}/10`);
   }, [currentRound]);
 
-  // generating a new word
-  const fetchNewWord = () => {};
-
   // checking answer
   const checkAnswer = () => {
+    console.log(userInput);
+    console.log(currentWordData);
     if (currentWordData === userInput) {
       // correct answer tasks
+      console.log("Correct");
     }
-    setCurrentRound(currentRound + 1);
-    fetchWord();
+    setUserInput("");
+    setTimeout(() => {
+      setCurrentRound(currentRound + 1);
+      fetchWord();
+    }, 1000);
   };
 
   // passing word
-  const passWord = () => {};
+  const passWord = () => {
+    setCurrentRound(currentRound + 1);
+    fetchWord();
+  };
   if (gameActive) {
     return (
       <div className="w-full md:max-w-5xl flex flex-col text-center mx-auto p-2">
@@ -79,13 +86,13 @@ const ReadingCard = () => {
           {/* action buttons */}
           <div className="flex flex-row w-full gap-5 py-2 md:py-4 justify-center">
             <h2
-              onClick={checkAnswer}
+              onClick={() => checkAnswer()}
               className="py-2 px-6 bg-lgreen rounded-xl font-charcoal cursor-pointer"
             >
               Submit
             </h2>
             <h2
-              onClick={passWord}
+              onClick={() => passWord()}
               className="py-2 px-6 bg-raphaelred rounded-xl font-lightcharcoal cursor-pointer"
             >
               Pass
@@ -99,4 +106,4 @@ const ReadingCard = () => {
   return <div>Game Over</div>;
 };
 
-export default ReadingCard;
+export default SpellingCard;

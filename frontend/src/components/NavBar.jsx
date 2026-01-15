@@ -23,6 +23,9 @@ const NavBar = () => {
           <Link to="/" className="hover:text-black">
             Home
           </Link>
+          <Link to="/spelling_game" className="hover:text-black">
+            Spell
+          </Link>
           <Link to="/reading_game" className="hover:text-black">
             Read
           </Link>
@@ -35,17 +38,20 @@ const NavBar = () => {
         <div
           className={`md:hidden w-screen absolute top-20 left-0 text-center p-2 bg-charcoal opacity-98 flex flex-col gap-5 text-lg text-vanilla justify-center ${navOpen ? "" : "hidden"}`}
         >
-          <Link to="/" className="hover:font-black" onClick={toggleNav}>
+          <Link to="/" className="hover:text-black" onClick={toggleNav}>
             Home
+          </Link>
+          <Link to="/spelling_game" className="hover:text-black">
+            Spell
           </Link>
           <Link
             to="/reading_game"
-            className="hover:font-black"
+            className="hover:text-black"
             onClick={toggleNav}
           >
             Read
           </Link>
-          <Link to="/stats" className="hover:font-black" onClick={toggleNav}>
+          <Link to="/stats" className="hover:text-black" onClick={toggleNav}>
             Stats
           </Link>
         </div>

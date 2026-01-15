@@ -1,5 +1,5 @@
 import { useState } from "react";
-const SettingsBar = () => {
+const SettingsBar = ({ gameType }) => {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const toggleSettingsWindow = () => {
@@ -17,7 +17,7 @@ const SettingsBar = () => {
         </div>
         <div className="bg-vanilla p-2 flex-1 border-b-3 border-dgreen">
           <h1 className="text-4xl font-black text-dgreen tracking-wide">
-            READING
+            {gameType}
           </h1>
         </div>
       </div>
