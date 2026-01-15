@@ -38,28 +38,40 @@ const NavBar = () => {
         <div
           className={`md:hidden w-screen absolute top-20 left-0 text-center p-2 bg-charcoal opacity-98 flex flex-col gap-5 text-lg text-vanilla justify-center ${navOpen ? "" : "hidden"}`}
         >
-          <Link to="/" className="hover:text-black" onClick={toggleNav}>
+          <Link
+            to="/"
+            className="hover:text-michelangeloorange"
+            onClick={toggleNav}
+          >
             Home
           </Link>
-          <Link to="/spelling_game" className="hover:text-black">
+          <Link
+            to="/spelling_game"
+            className="hover:text-michelangeloorange"
+            onClick={toggleNav}
+          >
             Spell
           </Link>
           <Link
             to="/reading_game"
-            className="hover:text-black"
+            className="hover:text-michelangeloorange"
             onClick={toggleNav}
           >
             Read
           </Link>
-          <Link to="/stats" className="hover:text-black" onClick={toggleNav}>
+          <Link
+            to="/stats"
+            className="hover:text-michelangeloorange"
+            onClick={toggleNav}
+          >
             Stats
           </Link>
         </div>
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center">
           {/* hamburger */}
           <button
             onClick={toggleNav}
-            className="flex flex-col w-10 h-10 gap-1 cursor-pointer"
+            className="flex flex-col w-10 h-10 justify-center gap-1 cursor-pointer"
           >
             <div className={hamburgerLine}></div>
             <div className={hamburgerLine}></div>

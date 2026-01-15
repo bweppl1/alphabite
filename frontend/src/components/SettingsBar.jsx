@@ -1,5 +1,7 @@
 import { useState } from "react";
-const SettingsBar = ({ gameType }) => {
+import ExperienceBar from "./ExperienceBar";
+
+const SettingsBar = ({ gameType, correctCount }) => {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const toggleSettingsWindow = () => {
@@ -7,25 +9,25 @@ const SettingsBar = ({ gameType }) => {
   };
 
   return (
-    <div>
-      <div className="max-w-5xl mx-auto flex flex-row">
+    <div className="py-2 md:py-4">
+      <div className="max-w-5xl mx-auto flex flex-row bg-darkvanilla rounded-xl">
         <div
-          className={`bg-dgreen text-vanilla cursor-pointer rounded-t-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
+          className={`flex bg-dgreen text-vanilla items-center cursor-pointer rounded-tl-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
           onClick={toggleSettingsWindow}
         >
-          <h1 className="mx-6">Settings</h1>
+          Settings
         </div>
-        <div className="bg-vanilla p-2 flex-1 border-b-3 border-dgreen">
-          <h1 className="text-4xl font-black text-dgreen tracking-wide">
-            {gameType}
-          </h1>
+        <div
+          className={`bg-darkvanilla p-2 flex-1 rounded-tr-xl ${settingsOpen ? "" : "rounded-br-xl"}`}
+        >
+          <ExperienceBar correctCount={correctCount} />
         </div>
       </div>
       {/* settings window */}
       <div
         className={`border mx-auto border-dgreen bg-dgreen p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
       >
-        <div className="rounded-b-xl rounded-tl-xl bg-vanilla text-charcoal h-50 p-4">
+        <div className="rounded-b-xl rounded-tl-xl bg-vanilla text-charcoal p-4">
           Settings Window
         </div>
       </div>

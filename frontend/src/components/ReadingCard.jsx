@@ -3,19 +3,15 @@ import { Link } from "react-router-dom";
 import ExperienceBar from "./ExperienceBar";
 import SettingsBar from "../components/SettingsBar";
 
-const SpellingCard = () => {
+const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
   const [userInput, setUserInput] = useState("");
-  const [currentWordData, setCurrentWordData] = useState("");
+  const [currentWord, setCurrentWord] = useState("");
+  const [roundWords, setRoundWords] = useState([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
-
-  // load first word on initial render
-  useEffect(() => {
-    fetchWord();
-  }, []);
 
   // temp data
   const words = [
@@ -31,10 +27,31 @@ const SpellingCard = () => {
     "dog",
   ];
 
+  useEffect(() => {
+    fetchOptionWords();
+  }, []);
+
   // temp word fetch
   const fetchWord = () => {
     const randomWord = words[Math.floor(Math.random() * words.length)];
-    setCurrentWordData(randomWord);
+    return randomWord;
+  };
+
+  // fetching 2 wrong options
+  const fetchOptionWords = () => {
+    const usedWords = [currentWord];
+    const availableWords = words.filter((word) => !usedWords.includes(word));
+
+    //random options
+    const firstOption =
+      availableWords[Math.floor(Math.random() * avilableWords.length)];
+    usedWords.push(firstOption);
+    const secondOption =
+      availableWords[Math.floor(Math.random() * avilableWords.length)];
+
+    const thirdOption = fetchWord();
+    setRoundWords(firstOption, secondOption, thirdOption);
+    setCurrentWord(thirdOption);
   };
 
   // update round display and check for game end after each round
@@ -46,33 +63,8 @@ const SpellingCard = () => {
   }, [currentRound]);
 
   // checking answer
-  const checkAnswer = () => {
-    console.log(userInput);
-    console.log(currentWordData);
-    if (currentWordData === userInput) {
-      // correct answer tasks
-      console.log("Correct");
-      setIsCorrect(true);
-      setCorrectCount(correctCount + 1);
-      // incorrect answer tasks
-    } else {
-      console.log("False");
-      setIsCorrect(false);
-    }
-    // next question tasks
-    setTimeout(() => {
-      setUserInput("");
-      setCurrentRound(currentRound + 1);
-      fetchWord();
-      setIsCorrect(null);
-    }, 1000); // delay
-  };
+  const checkAnswer = () => {};
 
-  // passing word
-  const passWord = () => {
-    setCurrentRound(currentRound + 1);
-    fetchWord();
-  };
   if (gameActive) {
     return (
       <div className="w-full md:max-w-5xl flex flex-col text-center mx-auto p-2">
@@ -83,31 +75,22 @@ const SpellingCard = () => {
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
           <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-            {currentWordData}
+            {currentWord}
           </div>
 
-          {/* user input */}
-          <input
-            placeholder="type here"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className={`focus:outline-0 caret-lightcharcoal p-2 md:p-4 mx-auto rounded-xl text-4xl text-charcoal md:text-6xl w-full bg-vanilla ${isCorrect ? "border-lgreen" : ""}`}
-          />
-
-          {/* action buttons */}
-          <div className="flex flex-row w-full gap-5 py-2 md:py-4 justify-center">
-            <h2
-              onClick={() => checkAnswer()}
-              className="py-2 px-6 bg-lgreen rounded-xl font-charcoal cursor-pointer"
-            >
-              Submit
-            </h2>
-            <h2
-              onClick={() => passWord()}
-              className="py-2 px-6 bg-raphaelred rounded-xl font-lightcharcoal cursor-pointer"
-            >
-              Pass
-            </h2>
+          {/* user guess buttons */}
+          <div className="flex flex-row gap-5 justify-center">
+            {roundWords &&
+              roundWords.map((word) => <div key={word.indexOf()}>{word}</div>)}
+            <h3 className="bg-raphaelred py-2 px-6 rounded-xl text-2xl text-charcoal">
+              Guess 1
+            </h3>
+            <h3 className="bg-bananayellow py-2 px-6 rounded-xl text-2xl text-charcoal">
+              Guess 2
+            </h3>
+            <h3 className="bg-lgreen py-2 px-6 rounded-xl text-2xl text-charcoal">
+              Guess 3
+            </h3>
           </div>
         </div>
       </div>
@@ -132,11 +115,11 @@ const SpellingCard = () => {
           to="/reading_game"
           className="px-6 py-2 bg-bananayellow rounded-xl"
         >
-          Try Reading
+          Try Spelling
         </Link>
       </div>
     </div>
   );
 };
 
-export default SpellingCard;
+export default ReadingCard;

@@ -1,20 +1,29 @@
 import { useState, useEffect } from "react";
 
-const ExperienceBar = ({ round, resultArray }) => {
-  return (
-    <div className="flex flex-row gap-2">
-      <div className="w-10 h-10 border-red-500 rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-      <div className="w-10 h-10 border-lightcharcoal rounded-xl"></div>
-    </div>
-  );
+const ExperienceBar = ({ correctCount }) => {
+  const [expPips, setExpPips] = useState(correctCount);
+
+  useEffect(() => {
+    const pips = [];
+    const emptyPips = 10 - correctCount;
+    // filled pips
+    for (let i = 0; i < correctCount; i++) {
+      pips.push(
+        <div className="w-10 h-10 border-3 bg-lgreen border-lgreen rounded-xl"></div>,
+      );
+    }
+
+    // empty pips
+    for (let i = 0; i < emptyPips; i++) {
+      pips.push(
+        <div className="w-10 h-10 border-3 border-lightcharcoal rounded-xl"></div>,
+      );
+    }
+
+    setExpPips(pips);
+  }, [correctCount]);
+
+  return <div className="flex flex-row gap-2 mx-auto">{expPips}</div>;
 };
 
 export default ExperienceBar;
