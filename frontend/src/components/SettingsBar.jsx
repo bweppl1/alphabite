@@ -12,7 +12,7 @@ const SettingsBar = ({ gameType, correctCount }) => {
     <div className="py-2 md:py-4">
       <div className="max-w-5xl mx-auto flex flex-row bg-darkvanilla rounded-xl">
         <div
-          className={`flex bg-dgreen text-vanilla items-center cursor-pointer rounded-tl-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
+          className={`flex bg-charcoal text-vanilla items-center cursor-pointer rounded-tl-xl p-2 ${settingsOpen ? "" : "rounded-bl-xl"}`}
           onClick={toggleSettingsWindow}
         >
           Settings
@@ -25,7 +25,7 @@ const SettingsBar = ({ gameType, correctCount }) => {
       </div>
       {/* settings window */}
       <div
-        className={`border mx-auto border-dgreen bg-dgreen p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
+        className={`border mx-auto border-charcoal bg-charcoal p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
       >
         <div className="rounded-b-xl rounded-tl-xl bg-vanilla text-charcoal p-4">
           Settings Window

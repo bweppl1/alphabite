@@ -12,18 +12,9 @@ const ReadingCard = () => {
   const [correctCount, setCorrectCount] = useState(0);
 
   // temp data
-  const words = [
-    "tree",
-    "dad",
-    "mom",
-    "happy",
-    "run",
-    "ball",
-    "sun",
-    "moon",
-    "car",
-    "dog",
-  ];
+  const wordsData = { dog: "🐶", cat: "🐱", duck: "🦆" };
+  const words = Object.keys(wordsData);
+  console.log(`words: ${words}`);
 
   useEffect(() => {
     fetchOptionWords();
@@ -92,8 +83,8 @@ const ReadingCard = () => {
         <SettingsBar gameType="Reading" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-            {currentWord}
+          <div className="w-50 h-50 bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
+            {wordsData[currentWord]}
           </div>
 
           {/* user guess buttons */}
