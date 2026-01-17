@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ExperienceBar from "./ExperienceBar";
 import SettingsBar from "../components/SettingsBar";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
-  const [userInput, setUserInput] = useState("");
   const [currentWord, setCurrentWord] = useState("");
   const [roundWords, setRoundWords] = useState([]);
   const [currentRound, setCurrentRound] = useState(1);
@@ -34,23 +32,27 @@ const ReadingCard = () => {
   // temp word fetch
   const fetchWord = () => {
     const randomWord = words[Math.floor(Math.random() * words.length)];
+    console.log(`fetchWord: ${randomWord}`);
     return randomWord;
   };
 
   // fetching 2 wrong options
   const fetchOptionWords = () => {
-    const usedWords = [currentWord];
+    const usedWords = [currentWord]; // list of already chosen words to exclude from randomizer
     const availableWords = words.filter((word) => !usedWords.includes(word));
 
-    //random options
+    // choosing 2 random options
     const firstOption =
-      availableWords[Math.floor(Math.random() * avilableWords.length)];
+      availableWords[Math.floor(Math.random() * availableWords.length)];
+    // add first option to usedWords to not duplicate options
     usedWords.push(firstOption);
+    console.log(`first option: ${firstOption}`);
     const secondOption =
-      availableWords[Math.floor(Math.random() * avilableWords.length)];
+      availableWords[Math.floor(Math.random() * availableWords.length)];
+    console.log(`second option: ${secondOption}`);
 
     const thirdOption = fetchWord();
-    setRoundWords(firstOption, secondOption, thirdOption);
+    setRoundWords([firstOption, secondOption, thirdOption]);
     setCurrentWord(thirdOption);
   };
 
@@ -63,7 +65,23 @@ const ReadingCard = () => {
   }, [currentRound]);
 
   // checking answer
-  const checkAnswer = () => {};
+  const checkAnswer = (guess) => {
+    if (guess === currentWord) {
+      // correct answer tasks
+      setIsCorrect(true);
+      setCorrectCount(correctCount + 1);
+    } else {
+      //wrong answer tasks
+      setIsCorrect(false);
+    }
+    //reset question tasks
+    setTimeout(() => {
+      setIsCorrect(null);
+      setCurrentRound(currentRound + 1);
+      setCurrentWord(fetchWord());
+      fetchOptionWords();
+    }, 1000); //delay
+  };
 
   if (gameActive) {
     return (
@@ -71,7 +89,7 @@ const ReadingCard = () => {
         <h2 className="text-xl md:text-xl text-vanilla bg-dgreen px-6 py-2 rounded-xl">
           {roundDisplay}
         </h2>
-        <SettingsBar gameType="Spelling" correctCount={correctCount} />
+        <SettingsBar gameType="Reading" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
           <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
@@ -81,16 +99,16 @@ const ReadingCard = () => {
           {/* user guess buttons */}
           <div className="flex flex-row gap-5 justify-center">
             {roundWords &&
-              roundWords.map((word) => <div key={word.indexOf()}>{word}</div>)}
-            <h3 className="bg-raphaelred py-2 px-6 rounded-xl text-2xl text-charcoal">
-              Guess 1
-            </h3>
-            <h3 className="bg-bananayellow py-2 px-6 rounded-xl text-2xl text-charcoal">
-              Guess 2
-            </h3>
-            <h3 className="bg-lgreen py-2 px-6 rounded-xl text-2xl text-charcoal">
-              Guess 3
-            </h3>
+              roundWords.map((word) => (
+                <div
+                  key={word.id}
+                  className="py-2 px-6 rounded-xl text-2xl text-charcoal cursor-pointer hover:bg-michelangeloorange bg-bananayellow"
+                  onClick={() => checkAnswer(word)}
+                >
+                  {word}
+                </div>
+              ))}
+            {console.log(`test: ${roundWords}`)}
           </div>
         </div>
       </div>
@@ -112,7 +130,7 @@ const ReadingCard = () => {
           Play Again
         </Link>
         <Link
-          to="/reading_game"
+          to="/spelling_game"
           className="px-6 py-2 bg-bananayellow rounded-xl"
         >
           Try Spelling

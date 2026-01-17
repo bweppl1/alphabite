@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ExperienceBar from "./ExperienceBar";
 import SettingsBar from "../components/SettingsBar";
 
 const SpellingCard = () => {
