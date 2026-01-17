@@ -9,7 +9,7 @@ const ExperienceBar = ({ correctCount }) => {
     // filled pips
     for (let i = 0; i < correctCount; i++) {
       pips.push(
-        <div className="w-full h-10 border-3 bg-lgreen border-lgreen rounded-xl"></div>,
+        <div className="w-full h-10 bg-lgreen border-lgreen rounded-xl"></div>,
       );
     }
 

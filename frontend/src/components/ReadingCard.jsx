@@ -12,7 +12,23 @@ const ReadingCard = () => {
   const [correctCount, setCorrectCount] = useState(0);
 
   // temp data
-  const wordsData = { dog: "🐶", cat: "🐱", duck: "🦆" };
+  const wordsData = {
+    dog: "🐶",
+    cat: "🐱",
+    duck: "🦆",
+    pig: "🐖",
+    zebra: "🦓",
+    frog: "🐸",
+    bird: "🐦",
+    horse: "🐴",
+    crab: "🦀",
+    worm: "🪱",
+    sun: "🌞",
+    egg: "🥚",
+    cookie: "🍪",
+    apple: "🍎",
+    donut: "🍩",
+  };
   const words = Object.keys(wordsData);
   console.log(`words: ${words}`);
 
@@ -114,7 +130,7 @@ const ReadingCard = () => {
       </h3>
       <div className="flex flex-row gap-5">
         <Link
-          to="/spelling_game"
+          to="/reading_game"
           className="px-6 py-2 bg-lgreen rounded-xl"
           onClick={() => playAgain()}
         >
