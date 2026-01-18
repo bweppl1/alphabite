@@ -99,7 +99,7 @@ const ReadingCard = () => {
         <SettingsBar gameType="Reading" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <div className="w-50 h-50 bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
+          <div className="w-50 h-50 flex items-center justify-center bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
             {wordsData[currentWord]}
           </div>
 
