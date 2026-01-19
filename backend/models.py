@@ -1,5 +1,5 @@
 # sqlalchemy models
-from sqlalchemy import Column, String, Integer, Boolean
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import ARRAY
 
@@ -16,3 +16,15 @@ class Words(Base):
 
 class Users(Base):
     __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    date_created = Column(DateTime, nullable=False)
+
+
+class UserWords(Base):
+    __tablename__ = "user_words"
+    id = Column(Integer, primary_key=True)
+    word_id = Column(Integer, ForeignKey("words.id"))
+    user_id = Column(Integer, ForeignKey("user.id"))
