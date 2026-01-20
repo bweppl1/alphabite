@@ -1,5 +1,5 @@
 # seed data
-wordsData = {
+words_data = {
     "dog": "🐶",
     "cat": "🐱",
     "duck": "🦆",

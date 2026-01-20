@@ -23,9 +23,9 @@ class Users(Base):
     date_created = Column(DateTime, nullable=False)
 
 
-class UserWords(Base):
-    __tablename__ = "user_words"
-    id = Column(Integer, primary_key=True)
-    word_score = Column(ARRAY[Boolean])
-    word_id = Column(Integer, ForeignKey("words.id"))
-    user_id = Column(Integer, ForeignKey("user.id"))
+# class UserWords(Base):
+#     __tablename__ = "user_words"
+#     id = Column(Integer, primary_key=True)
+#     word_score = Column(ARRAY[Boolean])
+#     word_id = Column(Integer, ForeignKey("words.id"))
+#     user_id = Column(Integer, ForeignKey("user.id"))

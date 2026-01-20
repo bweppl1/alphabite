@@ -1,6 +1,6 @@
 # pydantic schemas
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 
@@ -11,7 +11,7 @@ class WordBase(BaseModel):
     id: int
     word: str
     emoji: str
-    tags: List[str]
+    tags: Optional[List[str]]
 
 
 class WordResponse(WordBase):
@@ -46,5 +46,5 @@ class UserResponse(UserBase):
 ##### User word schemas
 
 
-class UserWordBase(BaseModel):
-    pass
+# class UserWordBase(BaseModel):
+#     pass

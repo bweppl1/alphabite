@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from fastapi import Depends
 
 from database import engine, get_db
-from models import Words, Users, UserWords, Base
-from seed_words import wordsData
+from models import Words, Users, Base
+from seed_words import words_data
 
 
 # truncate table function
@@ -21,7 +21,7 @@ def seed_db():
 
         word_count = 0
 
-        for word, emoji in wordsData:
+        for word, emoji in words_data:
             word = Words(word=word)
             emoji = Words(emoji=emoji)
             db.add(word)
@@ -31,7 +31,7 @@ def seed_db():
         db.commit()
         db.close()
 
-    print(f"Seeded ${word_count} words of ${len(wordsData)} possible words.")
+    print(f"Seeded ${word_count} words of ${len(words_data)} possible words.")
 
 
 seed_db()
