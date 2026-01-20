@@ -4,7 +4,7 @@ from typing import List
 from datetime import datetime
 
 
-### Word schemas
+##### Word schemas
 
 
 class WordBase(BaseModel):
@@ -24,10 +24,27 @@ class WordCreate(BaseModel):
     tags: List[str]
 
 
-# User schemas
+##### User schemas
+
+
 class UserBase(BaseModel):
     id: int
     username: str
     email: str
     password: str
-    date_create: datetime
+    date_created: datetime
+
+
+class UserCreate(UserBase):
+    pass
+
+
+class UserResponse(UserBase):
+    pass
+
+
+##### User word schemas
+
+
+class UserWordBase(BaseModel):
+    pass

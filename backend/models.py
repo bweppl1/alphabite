@@ -26,5 +26,6 @@ class Users(Base):
 class UserWords(Base):
     __tablename__ = "user_words"
     id = Column(Integer, primary_key=True)
+    word_score = Column(ARRAY[Boolean])
     word_id = Column(Integer, ForeignKey("words.id"))
     user_id = Column(Integer, ForeignKey("user.id"))
