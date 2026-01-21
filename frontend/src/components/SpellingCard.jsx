@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SettingsBar from "../components/SettingsBar";
+import { get_random_word } from "../services/word.js";
 
 const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -31,9 +32,11 @@ const SpellingCard = () => {
   ];
 
   // temp word fetch
-  const fetchWord = () => {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    setCurrentWordData(randomWord);
+  const fetchWord = async () => {
+    // const randomWord = words[Math.floor(Math.random() * words.length)];
+    const randomWordData = await get_random_word();
+    console.log(randomWordData);
+    // setCurrentWordData(randomWordData.word);
   };
 
   // update round display and check for game end after each round

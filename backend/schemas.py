@@ -11,7 +11,7 @@ class WordBase(BaseModel):
     id: int
     word: str
     emoji: str
-    tags: Optional[List[str]]
+    # tags: Optional[List[str]]
 
 
 class WordResponse(WordBase):

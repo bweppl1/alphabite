@@ -21,17 +21,15 @@ def seed_db():
 
         word_count = 0
 
-        for word, emoji in words_data:
-            word = Words(word=word)
-            emoji = Words(emoji=emoji)
+        for word, emoji in words_data.items():
+            word = Words(word=word, emoji=emoji)
             db.add(word)
-            db.add(emoji)
             word_count += 1
 
         db.commit()
         db.close()
 
-    print(f"Seeded ${word_count} words of ${len(words_data)} possible words.")
+    print(f"Seeded {word_count} words of {len(words_data)} possible words.")
 
 
 seed_db()

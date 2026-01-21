@@ -2,8 +2,8 @@ import uvicorn  # server
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import words  # for api endpoints
-from core.config import CORS_ORIGINS
+from .routers import words
+from .core.config import CORS_ORIGINS
 
 app = FastAPI(debug=True)
 
