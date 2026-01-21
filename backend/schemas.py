@@ -8,10 +8,10 @@ from datetime import datetime
 
 
 class WordBase(BaseModel):
-    id: int
+    word_id: int
     word: str
     emoji: str
-    # tags: Optional[List[str]]
+    tags: Optional[List[str]]
 
 
 class WordResponse(WordBase):
@@ -28,7 +28,7 @@ class WordCreate(BaseModel):
 
 
 class UserBase(BaseModel):
-    id: int
+    user_id: int
     username: str
     email: str
     password: str

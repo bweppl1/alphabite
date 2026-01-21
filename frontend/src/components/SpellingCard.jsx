@@ -6,7 +6,8 @@ import { get_random_word } from "../services/word.js";
 const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);
   const [userInput, setUserInput] = useState("");
-  const [currentWordData, setCurrentWordData] = useState("");
+  const [currentWord, setCurrentWord] = useState("");
+  const [currentEmoji, setCurrentEmoji] = useState("");
   const [currentRound, setCurrentRound] = useState(1);
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
   const [isCorrect, setIsCorrect] = useState(null);
@@ -35,8 +36,9 @@ const SpellingCard = () => {
   const fetchWord = async () => {
     // const randomWord = words[Math.floor(Math.random() * words.length)];
     const randomWordData = await get_random_word();
-    console.log(randomWordData);
-    // setCurrentWordData(randomWordData.word);
+
+    setCurrentWord(randomWordData.word);
+    setCurrentEmoji(randomWordData.emoji);
   };
 
   // update round display and check for game end after each round
@@ -50,8 +52,8 @@ const SpellingCard = () => {
   // checking answer
   const checkAnswer = () => {
     console.log(userInput);
-    console.log(currentWordData);
-    if (currentWordData === userInput) {
+    console.log(currentWord);
+    if (currentWord === userInput) {
       // correct answer tasks
       console.log("Correct");
       setIsCorrect(true);
@@ -84,8 +86,8 @@ const SpellingCard = () => {
         <SettingsBar gameType="Spelling" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <div className="w-50 h-50 bg-michelangeloorange mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-            {currentWordData}
+          <div className="w-50 h-50 flex items-center justify-center bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
+            {currentEmoji}
           </div>
 
           {/* user input */}
