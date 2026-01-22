@@ -1,66 +1,42 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SettingsBar from "../components/SettingsBar";
+import EmojiDisplay from "../components/EmojiDisplay.jsx";
+import { get_random_word } from "../services/word";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
   const [currentWord, setCurrentWord] = useState("");
+  const [decoyWord1, setDecoyWord1] = useState("");
+  const [decoyWord2, setDecoyWord2] = useState("");
+  const [currentEmoji, setCurrentEmoji] = useState("");
   const [roundWords, setRoundWords] = useState([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
 
-  // temp data
-  const wordsData = {
-    dog: "🐶",
-    cat: "🐱",
-    duck: "🦆",
-    pig: "🐖",
-    zebra: "🦓",
-    frog: "🐸",
-    bird: "🐦",
-    horse: "🐴",
-    crab: "🦀",
-    worm: "🪱",
-    sun: "🌞",
-    egg: "🥚",
-    cookie: "🍪",
-    apple: "🍎",
-    donut: "🍩",
-  };
-  const words = Object.keys(wordsData);
-  console.log(`words: ${words}`);
-
   useEffect(() => {
-    fetchOptionWords();
+    fetchRoundWords();
   }, []);
 
   // temp word fetch
-  const fetchWord = () => {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    console.log(`fetchWord: ${randomWord}`);
-    return randomWord;
+  const fetchWord = async () => {
+    const randomWordData = await get_random_word();
+
+    setCurrentWord = randomWordData.word;
+    setDecoyWord1 = "decoy1";
+    setDecoyWord2 = "decoy2";
+    setCurrentEmoji = randomWordData.emoji;
   };
 
   // fetching 2 wrong options
-  const fetchOptionWords = () => {
-    const usedWords = [currentWord]; // list of already chosen words to exclude from randomizer
-    const availableWords = words.filter((word) => !usedWords.includes(word));
+  const fetchRoundWords = () => {
+    // const usedWords = [currentWord]; // list of already chosen words to exclude from randomizer
+    // const availableWords = words.filter((word) => !usedWords.includes(word));
 
     // choosing 2 random options
-    const firstOption =
-      availableWords[Math.floor(Math.random() * availableWords.length)];
-    // add first option to usedWords to not duplicate options
-    usedWords.push(firstOption);
-    console.log(`first option: ${firstOption}`);
-    const secondOption =
-      availableWords[Math.floor(Math.random() * availableWords.length)];
-    console.log(`second option: ${secondOption}`);
-
-    const thirdOption = fetchWord();
-    setRoundWords([firstOption, secondOption, thirdOption]);
-    setCurrentWord(thirdOption);
+    setRoundWords([currentWord, decoyWord1, decoyWord2]);
   };
 
   // update round display and check for game end after each round
@@ -86,7 +62,7 @@ const ReadingCard = () => {
       setIsCorrect(null);
       setCurrentRound(currentRound + 1);
       setCurrentWord(fetchWord());
-      fetchOptionWords();
+      fetchRoundWords();
     }, 1000); //delay
   };
 
@@ -99,9 +75,7 @@ const ReadingCard = () => {
         <SettingsBar gameType="Reading" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <div className="w-50 h-50 flex items-center justify-center bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-            {wordsData[currentWord]}
-          </div>
+          <EmojiDisplay emoji={currentEmoji} />
 
           {/* user guess buttons */}
           <div className="flex flex-row gap-5 justify-center">

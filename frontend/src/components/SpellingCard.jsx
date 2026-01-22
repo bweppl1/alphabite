@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SettingsBar from "../components/SettingsBar";
+import EmojiDisplay from "../components/EmojiDisplay";
 import { get_random_word } from "../services/word.js";
 
 const SpellingCard = () => {
@@ -18,23 +19,8 @@ const SpellingCard = () => {
     fetchWord();
   }, []);
 
-  // temp data
-  const words = [
-    "tree",
-    "dad",
-    "mom",
-    "happy",
-    "run",
-    "ball",
-    "sun",
-    "moon",
-    "car",
-    "dog",
-  ];
-
-  // temp word fetch
+  // fetching a random word from database
   const fetchWord = async () => {
-    // const randomWord = words[Math.floor(Math.random() * words.length)];
     const randomWordData = await get_random_word();
 
     setCurrentWord(randomWordData.word);
@@ -86,9 +72,7 @@ const SpellingCard = () => {
         <SettingsBar gameType="Spelling" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <div className="w-50 h-50 flex items-center justify-center bg-white shadow-lg text-9xl mx-auto my-2 md:my-4 p-2 md:p-4 rounded-xl">
-            {currentEmoji}
-          </div>
+          <EmojiDisplay emoji={currentEmoji} />
 
           {/* user input */}
           <input

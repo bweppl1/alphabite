@@ -11,7 +11,7 @@ router = APIRouter()
 
 # get a random word
 @router.get("/random_word", response_model=schemas.WordResponse)
-def get_word(db: Session = Depends(get_db)):
+def get_word(used_words: Optional[List[str]], db: Session = Depends(get_db)):
     query = db.query(models.Words)  # all words
     random_word = query.order_by(func.random()).first()  # choosing a random word
     # include only words with _tag_  **TO DO
