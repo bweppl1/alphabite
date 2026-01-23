@@ -17,26 +17,44 @@ const ReadingCard = () => {
   const [correctCount, setCorrectCount] = useState(0);
 
   useEffect(() => {
+    const firstWordData = fetchWord();
+    setCurrentWord(firstWordData.word);
+    setCurrentEmoji(firstWordData.emoji);
+
+    const roundAllWords = [];
+    roundAllWords.push(firstWordData.word);
+
+    while (roundAllWords.length < 3) {
+      const nextWordData = fetchWord();
+      roundAllWords.push(nextWordData.word);
+
+      setRoundWords(roundAllWords);
+    }
     fetchRoundWords();
+    console.log(`All Words this Round: ${roundWords}`);
   }, []);
+
+  const fetchRoundWords = () => {
+    const firstWordData = fetchWord();
+    setCurrentWord(firstWordData.word);
+    setCurrentEmoji(firstWordData.emoji);
+
+    const roundAllWords = [];
+    roundAllWords.push(firstWordData.word);
+
+    while (roundAllWords.length < 3) {
+      const nextWordData = fetchWord();
+      roundAllWords.push(nextWordData.word);
+
+      setRoundWords(roundAllWords);
+    }
+  };
 
   // temp word fetch
   const fetchWord = async () => {
     const randomWordData = await get_random_word();
-
-    setCurrentWord = randomWordData.word;
-    setDecoyWord1 = "decoy1";
-    setDecoyWord2 = "decoy2";
-    setCurrentEmoji = randomWordData.emoji;
-  };
-
-  // fetching 2 wrong options
-  const fetchRoundWords = () => {
-    // const usedWords = [currentWord]; // list of already chosen words to exclude from randomizer
-    // const availableWords = words.filter((word) => !usedWords.includes(word));
-
-    // choosing 2 random options
-    setRoundWords([currentWord, decoyWord1, decoyWord2]);
+    console.log(randomWordData.word);
+    return randomWordData;
   };
 
   // update round display and check for game end after each round
@@ -61,7 +79,6 @@ const ReadingCard = () => {
     setTimeout(() => {
       setIsCorrect(null);
       setCurrentRound(currentRound + 1);
-      setCurrentWord(fetchWord());
       fetchRoundWords();
     }, 1000); //delay
   };
@@ -82,7 +99,7 @@ const ReadingCard = () => {
             {roundWords &&
               roundWords.map((word) => (
                 <div
-                  key={word.id}
+                  key={word}
                   className="py-2 px-6 rounded-xl text-2xl text-charcoal cursor-pointer hover:bg-michelangeloorange bg-bananayellow"
                   onClick={() => checkAnswer(word)}
                 >
