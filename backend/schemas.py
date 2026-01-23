@@ -18,6 +18,11 @@ class WordResponse(WordBase):
     pass
 
 
+class MultiWordResponse(WordBase):  # for reading game
+    decoy_word_1: str
+    decoy_word_2: str
+
+
 class WordCreate(BaseModel):
     word: str
     emoji: str

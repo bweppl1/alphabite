@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SettingsBar from "../components/SettingsBar";
 import EmojiDisplay from "../components/EmojiDisplay.jsx";
-import { get_random_word } from "../services/word";
+import { get_reading_words } from "../services/word";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -17,45 +17,21 @@ const ReadingCard = () => {
   const [correctCount, setCorrectCount] = useState(0);
 
   useEffect(() => {
-    const firstWordData = fetchWord();
-    setCurrentWord(firstWordData.word);
-    setCurrentEmoji(firstWordData.emoji);
+    const fetchRoundWords = async () => {
+      const newRoundWordsData = await get_reading_words();
+      console.log(
+        `real word: ${newRoundWordsData.word}; decoy1: ${newRoundWordsData.decoy_word_1}; decoy2: ${newRoundWordsData.decoy_word_2}`,
+      );
+      setCurrentWord(newRoundWordsData.word);
+      setCurrentEmoji(newRoundWordsData.emoji);
+      setDecoyWord1(newRoundWordsData.decoy_word_1);
+      setDecoyWord2(newRoundWordsData.decoy_word_2);
 
-    const roundAllWords = [];
-    roundAllWords.push(firstWordData.word);
-
-    while (roundAllWords.length < 3) {
-      const nextWordData = fetchWord();
-      roundAllWords.push(nextWordData.word);
-
-      setRoundWords(roundAllWords);
-    }
+      setRoundWords([decoyWord1, currentWord, decoyWord2]);
+    };
     fetchRoundWords();
     console.log(`All Words this Round: ${roundWords}`);
   }, []);
-
-  const fetchRoundWords = () => {
-    const firstWordData = fetchWord();
-    setCurrentWord(firstWordData.word);
-    setCurrentEmoji(firstWordData.emoji);
-
-    const roundAllWords = [];
-    roundAllWords.push(firstWordData.word);
-
-    while (roundAllWords.length < 3) {
-      const nextWordData = fetchWord();
-      roundAllWords.push(nextWordData.word);
-
-      setRoundWords(roundAllWords);
-    }
-  };
-
-  // temp word fetch
-  const fetchWord = async () => {
-    const randomWordData = await get_random_word();
-    console.log(randomWordData.word);
-    return randomWordData;
-  };
 
   // update round display and check for game end after each round
   useEffect(() => {
@@ -99,7 +75,7 @@ const ReadingCard = () => {
             {roundWords &&
               roundWords.map((word) => (
                 <div
-                  key={word}
+                  key={word.id}
                   className="py-2 px-6 rounded-xl text-2xl text-charcoal cursor-pointer hover:bg-michelangeloorange bg-bananayellow"
                   onClick={() => checkAnswer(word)}
                 >
