@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi import Depends
 
-from database import engine, get_db
-from models import Words, Users, Base
-from seed_words import words_data
+from .database import engine, get_db
+from .models import Words, Users, Base
+from .seed_words import words_data
 
 
 # truncate table function

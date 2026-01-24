@@ -18,9 +18,9 @@ class WordResponse(WordBase):
     pass
 
 
-class MultiWordResponse(WordBase):  # for reading game
-    decoy_word_1: str
-    decoy_word_2: str
+class DecoyWordResponse(BaseModel):  # for reading game
+    word_id: int
+    word: str
 
 
 class WordCreate(BaseModel):

@@ -15,4 +15,11 @@ words_data = {
     "cookie": "🍪",
     "apple": "🍎",
     "donut": "🍩",
+    "cake": "🎂",
+    "popcorn": "🍿",
+    "corn": "🌽",
+    "lemon": "🍋",
+    "bacon": "🥓",
+    "hotdog": "🌭",
+    "candy": "🍬",
 }
