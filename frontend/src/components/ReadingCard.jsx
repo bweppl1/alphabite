@@ -6,6 +6,7 @@ import { get_reading_words } from "../services/word";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
+  const [currentRoundData, setCurrentRoundData] = useState(1);
   const [currentWord, setCurrentWord] = useState("");
   const [decoyWord1, setDecoyWord1] = useState("");
   const [decoyWord2, setDecoyWord2] = useState("");
@@ -22,12 +23,11 @@ const ReadingCard = () => {
       console.log(
         `real word: ${newRoundWordsData.word}; decoy1: ${newRoundWordsData.decoy_word_1}; decoy2: ${newRoundWordsData.decoy_word_2}`,
       );
-      setCurrentWord(newRoundWordsData.word);
-      setCurrentEmoji(newRoundWordsData.emoji);
-      setDecoyWord1(newRoundWordsData.decoy_word_1);
-      setDecoyWord2(newRoundWordsData.decoy_word_2);
+      setCurrentRoundData(newRoundWordsData);
+      setCurrentEmoji(currentRoundData.emoji);
+      // gotta figure out a way to have a unique key for the map, maybe nanoid
 
-      setRoundWords([decoyWord1, currentWord, decoyWord2]);
+      setRoundWords([]);
     };
     fetchRoundWords();
     console.log(`All Words this Round: ${roundWords}`);
