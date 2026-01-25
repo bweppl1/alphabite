@@ -14,7 +14,6 @@ router = APIRouter()
 def get_word(db: Session = Depends(get_db)):
     query = db.query(models.Words)  # all words
     random_word = query.order_by(func.random()).first()  # choosing a random word
-    # include only words with _tag_  **TO DO
 
     return {
         "word_id": random_word.id,
@@ -24,6 +23,7 @@ def get_word(db: Session = Depends(get_db)):
     }
 
 
+# get a decoy word, only sends the word and word_id; avoids fetching used_words
 @router.post("/decoy_word", response_model=schemas.DecoyWordResponse)
 def get_decoy_word(used_words: List[int], db: Session = Depends(get_db)):
     query = (

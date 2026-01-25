@@ -4,6 +4,10 @@ import SettingsBar from "../components/SettingsBar";
 import EmojiDisplay from "../components/EmojiDisplay.jsx";
 import { get_random_word } from "../services/word";
 import { get_decoy_word } from "../services/word";
+// sounds
+import correctSound from "../assets/sounds/correct.mp3";
+import incorrectSound from "../assets/sounds/incorrect.wav";
+import roundEndSound from "../assets/sounds/round_complete.wav";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -15,17 +19,35 @@ const ReadingCard = () => {
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
+  const [audio] = useState({
+    correct: new Audio(correctSound),
+    incorrect: new Audio(incorrectSound),
+    roundEnd: new Audio(roundEndSound),
+  });
 
   // fetch word data on initial render
   useEffect(() => {
     fetchRoundWords();
   }, []);
 
+  // sound loading and removing
+  useEffect(() => {
+    (audio.correct.load(), audio.incorrect.load(), audio.roundEnd.load());
+    return () => {
+      (audio.correct.remove(),
+        audio.incorrect.remove(),
+        audio.roundEnd.remove());
+    };
+  }, [audio]);
+
   // fetch words for the game round
   const fetchRoundWords = async () => {
     const newRoundWord = await get_random_word();
-    const newDecoyWord1 = await get_decoy_word([0]); // need to get used word ids to pass in
-    const newDecoyWord2 = await get_decoy_word([0, 1]);
+    console.log(`random word id: ${newRoundWord.word_id}`);
+    let usedWords = [newRoundWord.word_id];
+    const newDecoyWord1 = await get_decoy_word(usedWords); // need to get used word ids to pass in
+    usedWords.push(newDecoyWord1.word_id);
+    const newDecoyWord2 = await get_decoy_word(usedWords);
 
     // randomize word display order
     const wordsToRandomize = [newRoundWord, newDecoyWord1, newDecoyWord2];
@@ -52,7 +74,10 @@ const ReadingCard = () => {
   // update round display and check for game end after each round
   useEffect(() => {
     if (currentRound > 10) {
+      // round end tasks
       setGameActive(false);
+      audio.roundEnd.currentTime = 0; // ensure sound starts at beginning
+      audio.roundEnd.play(); // play sound
     }
     setRoundDisplay(`Round ${currentRound}/10`);
   }, [currentRound]);
@@ -67,10 +92,14 @@ const ReadingCard = () => {
 
     if (guess === currentWord) {
       // correct answer tasks
+      audio.correct.currentTime = 0; // ensure start sound at beginning
+      audio.correct.play(); // play sound
       setIsCorrect(true);
       setCorrectCount(correctCount + 1);
     } else {
       //wrong answer tasks
+      audio.incorrect.currentTime = 0; // ensure start sound at beginning
+      audio.incorrect.play(); // play sound
       setIsCorrect(false);
     }
     //reset question tasks

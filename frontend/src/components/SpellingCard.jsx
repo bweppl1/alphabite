@@ -37,9 +37,11 @@ const SpellingCard = () => {
 
   // checking answer
   const checkAnswer = () => {
-    console.log(userInput);
-    console.log(currentWord);
-    if (currentWord === userInput) {
+    console.log(userInput); // debug
+    console.log(currentWord); // debug
+
+    // compare input to answer, strip white space and force lowercase
+    if (currentWord === userInput.toLowerCase().trim()) {
       // correct answer tasks
       console.log("Correct");
       setIsCorrect(true);

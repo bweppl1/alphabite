@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   const games = [
     ["Spelling", "/spelling_game", "bg-bananayellow"],
@@ -10,13 +12,20 @@ const Home = () => {
         <div className="bg-lgreen flex-1 h-50 md:h-100">Reading</div>
         <div className="bg-bananayellow flex-1 h-50 md:h-100">Spelling</div>
       </div>
-      <div className="max-w-5xl mx-auto flex flex-row justify-between m-6">
+      <div className="max-w-5xl mx-auto flex flex-row justify-evenly m-6">
         {/* game grid */}
         {games &&
           games.map((game) => (
-            <div
-              className={`w-50 h-50 rounded-xl text-center ${game[2]}`}
-            ></div>
+            <Link to={game[1]}>
+              <div
+                key={game}
+                className={`w-35 h-35 md:w-50 md:h-50 rounded-xl flex ${game[2]} hover:shadow-xl hover:font-bold`}
+              >
+                <span className="m-auto text-vanilla md:text-xl">
+                  {game[0]}
+                </span>
+              </div>
+            </Link>
           ))}
       </div>
     </div>
