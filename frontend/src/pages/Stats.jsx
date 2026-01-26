@@ -1,11 +1,23 @@
+import { useState, useEffect } from "react";
+
 const Stats = () => {
+  const [user, setUser] = useState("");
+
   return (
-    <div>
-      <div className="w-50 h-50 m-5 rounded bg-raphaelred"></div>
-      <div className="w-50 h-50 m-5 rounded bg-dgreen"></div>
-      <div className="w-50 h-50 m-5 rounded bg-lgreen"></div>
-      <div className="w-50 h-50 m-5 rounded bg-michelangeloorange"></div>
-      <div className="w-50 h-50 m-5 rounded bg-bananayellow"></div>
+    <div className="w-full bg-vanilla min-h-screen">
+      <div className="max-w-5xl mx-auto rounded-xl bg-darkvanilla p-6 flex flex-col">
+        <h1>User</h1>
+        <span>email</span>
+
+        {/* reading stats */}
+        <div>Reading</div>
+
+        {/* spelling stats */}
+        <div>Spelling</div>
+
+        {/* badges */}
+        <div>Badges</div>
+      </div>
     </div>
   );
 };

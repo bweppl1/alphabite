@@ -7,10 +7,23 @@ const Home = () => {
     ["Spelling", "/spelling_game", "bg-lgreen"],
   ];
   return (
-    <div className="w-screen">
-      <div className="flex flex-col md:flex-row">
-        <div className="bg-lgreen flex-1 h-50 md:h-100">Reading</div>
-        <div className="bg-bananayellow flex-1 h-50 md:h-100">Spelling</div>
+    <div className="w-screen min-h-screen">
+      <div className="flex flex-col md:flex-row shadow-lg">
+        <div className="bg-lgreen flex-1 h-50 md:h-100 text-center">
+          <h1 className="text-5xl text-charcoal font-bold">READING</h1>
+          <p className="text-lightcharcoal">
+            An image will appear, let your toddler read each word and choose the
+            word that matches the image
+          </p>
+        </div>
+        <div className="bg-bananayellow flex-1 h-50 md:h-100 text-center">
+          <h1 className="text-5xl text-charcoal font-bold">Spelling</h1>
+          <p className="text-lightcharcoal">
+            An image will appear, let your toddler spell the image. Parents can
+            hover over the image to have the word displayed briefly if it is not
+            clear.
+          </p>
+        </div>
       </div>
       <div className="max-w-5xl mx-auto flex flex-row justify-evenly m-6">
         {/* game grid */}
