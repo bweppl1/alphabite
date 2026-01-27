@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Badge from "../components/Badge";
 
 const Stats = () => {
   const [user, setUser] = useState("");
@@ -16,7 +17,15 @@ const Stats = () => {
         <div>Spelling</div>
 
         {/* badges */}
-        <div>Badges</div>
+        <div>
+          Badges
+          <div className="flex justify-evenly gap-5">
+            <Badge badgeLabel="10" badgeBorder="" badgeBg="" />
+            <Badge badgeLabel="25" badgeBorder="" badgeBg="" />
+            <Badge badgeLabel="50" badgeBorder="" badgeBg="" />
+            <Badge badgeLabel="100" badgeBorder="" badgeBg="" />
+          </div>
+        </div>
       </div>
     </div>
   );
