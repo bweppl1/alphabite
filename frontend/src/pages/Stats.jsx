@@ -28,15 +28,16 @@ const Stats = () => {
               badgeBg="raphaelred"
             />
             <Badge badgeLabel="25" badgeBorder="lgreen" badgeBg="dgreen" />
-            <Badge
-              badgeLabel="50"
-              badgeBorder="michaelangeloorange"
-              badgeBg="vanilla"
-            />
+            <Badge badgeLabel="55" badgeBorder="dgreen" badgeBg="dgreen" />
             <Badge
               badgeLabel="100"
-              badgeBorder="lightcharcoal"
+              badgeBorder="raphaelred"
               badgeBg="bananayellow"
+            />
+            <Badge
+              badgeLabel="10"
+              badgeBorder="bananayellow"
+              badgeBg="dgreen"
             />
           </div>
         </div>

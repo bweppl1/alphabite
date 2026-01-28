@@ -32,6 +32,9 @@ const NavBar = () => {
           <Link to="/stats" className="hover:text-black">
             Stats
           </Link>
+          <Link to="/login" className="hover:text-black">
+            Login/Register
+          </Link>
         </div>
 
         {/* mobile nav */}

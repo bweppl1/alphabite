@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import SettingsBar from "../components/SettingsBar";
 import EmojiDisplay from "../components/EmojiDisplay";
 import { get_random_word } from "../services/word.js";
+// sounds
+import correctSound from "../assets/sounds/correct.mp3";
+import incorrectSound from "../assets/sounds/incorrect.wav";
+import roundEndSound from "../assets/sounds/round_complete.wav";
 
 const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -13,11 +17,28 @@ const SpellingCard = () => {
   const [roundDisplay, setRoundDisplay] = useState("Round 1/10");
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
+  const [audio] = useState({
+    correct: new Audio(correctSound),
+    incorrect: new Audio(incorrectSound),
+    roundEnd: new Audio(roundEndSound),
+  });
 
   // load first word on initial render
   useEffect(() => {
     fetchWord();
   }, []);
+
+  // load and remove all sounds
+  useEffect(() => {
+    audio.correct.load();
+    audio.incorrect.load();
+    audio.roundEnd.load();
+    return () => {
+      (audio.correct.remove(),
+        audio.incorrect.remove(),
+        audio.roundEnd.remove());
+    };
+  }, [audio]);
 
   // fetching a random word from database
   const fetchWord = async () => {
@@ -30,6 +51,8 @@ const SpellingCard = () => {
   // update round display and check for game end after each round
   useEffect(() => {
     if (currentRound > 10) {
+      // round end tasks
+      audio.roundEnd.play();
       setGameActive(false);
     }
     setRoundDisplay(`Round ${currentRound}/10`);
@@ -44,10 +67,12 @@ const SpellingCard = () => {
     if (currentWord === userInput.toLowerCase().trim()) {
       // correct answer tasks
       console.log("Correct");
+      audio.correct.play();
       setIsCorrect(true);
       setCorrectCount(correctCount + 1);
-      // incorrect answer tasks
     } else {
+      // incorrect answer tasks
+      audio.incorrect.play();
       console.log("False");
       setIsCorrect(false);
     }
