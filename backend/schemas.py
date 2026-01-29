@@ -48,8 +48,16 @@ class UserResponse(UserBase):
     pass
 
 
-##### User word schemas
+##### Authentication schemas
 
 
-# class UserWordBase(BaseModel):
-#     pass
+class LoginBase(BaseModel):
+    username: str
+    email: str
+    password: str
+
+
+class LoginResponse(BaseModel):
+    username: str
+    email: str
+    token: str
