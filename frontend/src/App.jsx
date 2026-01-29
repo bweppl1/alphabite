@@ -5,6 +5,7 @@ import ReadingGame from "./pages/ReadingGame";
 import SpellingGame from "./pages/SpellingGame";
 import Stats from "./pages/Stats";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/spelling_game" element={<SpellingGame />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </BrowserRouter>
