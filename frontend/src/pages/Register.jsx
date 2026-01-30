@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Stats = () => {
-  const [username, setUsernae] = useState("");
-  const [password, setPassword] = useState("");
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    setFormData([username, password]);
+  const handleSubmit = (e) => {
+    e.preventDefault;
+    if (formData.email !== "" && formData.password !== "") {
+      // TODO: better form validation
+      useAuth.authAction(formData, "register");
+      setError("");
+    } else {
+      setError("You must enter an email and password.");
+    }
   };
 
   const handleChange = (e) => {
-    e.preventDefault;
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -19,13 +28,13 @@ const Stats = () => {
       <div className="w-full max-w-xl mx-auto rounded-xl bg-darkvanilla p-6">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-5 items-center m-2">
-            <label htmlFor="username" className="w-1/3 text-right">
-              Username:
+            <label htmlFor="email" className="w-1/3 text-right">
+              Email:
             </label>
             <input
               type="text"
-              name="username"
-              id="username"
+              name="email"
+              id="email"
               onChange={handleChange}
               className="p-2 bg-vanilla rounded-xl text-charcoal"
             />
@@ -35,7 +44,7 @@ const Stats = () => {
               Password:
             </label>
             <input
-              type="text"
+              type="password"
               name="password"
               id="password"
               onChange={handleChange}
@@ -47,7 +56,7 @@ const Stats = () => {
               Confirm Password:
             </label>
             <input
-              type="text"
+              type="password"
               name="confirmpassword"
               id="confirmpassword"
               onChange={handleChange}
@@ -58,6 +67,8 @@ const Stats = () => {
             Submit
           </button>
         </form>
+        {error && <h1 className="text-raphaelred font-bold">{error}</h1>}
+        <Link to="/login">Already have an account? Login here.</Link>
       </div>
     </div>
   );

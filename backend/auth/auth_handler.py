@@ -1,7 +1,13 @@
 from datetime import timedelta
 import jwt
+from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import Session
 import bcrypt
+
+from ..core.config import SECRET_KEY, TOKEN_EXPIRES_MINUTES
+from ..database import get_db
+from ..models import Users
 
 o2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
@@ -36,3 +42,5 @@ def create_token(data: dict, expires_delta: timedelta):
 
 
 # get_current_user - using token
+def get_current_user(token, db: Session = Depends(get_db)):
+    pass

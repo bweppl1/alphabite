@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Stats = () => {
-  const [username, setUsernae] = useState("");
+  const [email, set] = useState("");
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useState([]);
 
   const handleSubmit = () => {
-    setFormData([username, password]);
+    setFormData([email, password]);
   };
 
   const handleChange = (e) => {
@@ -19,13 +21,13 @@ const Stats = () => {
       <div className="w-full max-w-xl mx-auto rounded-xl bg-darkvanilla p-6">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-5 items-center m-2">
-            <label htmlFor="username" className="w-1/3 text-right">
-              Username:
+            <label htmlFor="email" className="w-1/3 text-right">
+              Email:
             </label>
             <input
               type="text"
-              name="username"
-              id="username"
+              name="email"
+              id="email"
               onChange={handleChange}
               className="p-2 bg-vanilla rounded-xl text-charcoal"
             />
@@ -35,7 +37,7 @@ const Stats = () => {
               Password:
             </label>
             <input
-              type="text"
+              type="password"
               name="password"
               id="password"
               onChange={handleChange}
@@ -46,6 +48,7 @@ const Stats = () => {
             Submit
           </button>
         </form>
+        <Link to="/register">No account? Register here.</Link>
       </div>
     </div>
   );

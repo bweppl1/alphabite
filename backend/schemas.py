@@ -34,7 +34,6 @@ class WordCreate(BaseModel):
 
 class UserBase(BaseModel):
     user_id: int
-    username: str
     email: str
     password: str
     date_created: datetime
@@ -46,7 +45,6 @@ class UserCreate(UserBase):
 
 class UserResponse(BaseModel):
     user_id: int
-    username: str
     email: str
 
 
@@ -54,7 +52,6 @@ class UserResponse(BaseModel):
 
 
 class LoginBase(BaseModel):
-    username: str
     email: str
     password: str
 
