@@ -44,8 +44,10 @@ class UserCreate(UserBase):
     pass
 
 
-class UserResponse(UserBase):
-    pass
+class UserResponse(BaseModel):
+    user_id: int
+    username: str
+    email: str
 
 
 ##### Authentication schemas
@@ -58,6 +60,5 @@ class LoginBase(BaseModel):
 
 
 class LoginResponse(BaseModel):
-    username: str
-    email: str
+    user_data: UserResponse
     token: str
