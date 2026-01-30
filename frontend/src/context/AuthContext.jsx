@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
   // if token exists, check for valid user, else clear token
   const fetchUserWithToken = async (storedToken) => {
     try {
-      const response = await fetch(`{API_BASE}/auth/me`, {
+      const response = await fetch(`${API_BASE}/auth/me`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       if (response.ok) {
@@ -66,9 +66,8 @@ const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error re: token", error);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   if (loading) {

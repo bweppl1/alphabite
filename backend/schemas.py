@@ -59,3 +59,15 @@ class LoginBase(BaseModel):
 class LoginResponse(BaseModel):
     user_data: UserResponse
     token: str
+
+
+#### Token schemas
+
+
+class TokenBase(BaseModel):
+    token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: str

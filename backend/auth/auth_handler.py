@@ -1,15 +1,17 @@
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 import jwt
-from fastapi import Depends
+from jwt.exceptions import InvalidTokenError
+from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 import bcrypt
 
-from ..core.config import SECRET_KEY, TOKEN_EXPIRES_MINUTES
+from ..core.config import SECRET_KEY, TOKEN_EXPIRES_MINUTES, ALGORITHM
 from ..database import get_db
 from ..models import Users
+from ..schemas import TokenData
 
-o2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
 # get_user - fetch user with email
@@ -38,9 +40,28 @@ def get_hashed_password(regular_password):
 ### TOKEN
 # create_token
 def create_token(data: dict, expires_delta: timedelta):
-    pass
+    data_to_encode = data.copy()
+    expires = datetime.now(timezone.utc) + expires_delta
+    data_to_encode.update({"exp": expires})
+    encoded_jwt = jwt.encode(data_to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
 
-# get_current_user - using token
-def get_current_user(token, db: Session = Depends(get_db)):
-    pass
+# get_current_user, validates token, returns associated user
+def get_current_user(
+    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
+):
+    cred_exception = HTTPException(status_code=401, detail="cred error")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithm=ALGORITHM)
+        email = payload.get("sub")
+        if email is None:
+            raise cred_exception
+        token_data = TokenData(email=email)
+    except InvalidTokenError as e:
+        raise cred_exception from e
+
+    user = db.query(Users).filter(Users.email == token_data.email).first()
+    if user is None:
+        raise cred_exception
+    return user

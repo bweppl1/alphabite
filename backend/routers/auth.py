@@ -4,7 +4,12 @@ from datetime import timedelta
 
 from .. import models, schemas
 from ..database import get_db
-from ..auth.auth_handler import get_user, get_hashed_password, create_token
+from ..auth.auth_handler import (
+    get_user,
+    get_hashed_password,
+    create_token,
+    get_current_user,
+)
 from ..core.config import TOKEN_EXPIRES_MINUTES
 
 router = APIRouter()
@@ -36,3 +41,9 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @router.post("/auth/login", response_model=schemas.LoginResponse)
 def login_user(email, regular_password, db: Session = Depends(get_db)):
     pass
+
+
+# verify current user, api call sends token, this funciton sends token to 'get_current_user'
+@router.get("/auth/me", response_model=schemas.UserResponse)
+def fetch_current_user(current_user: models.Users = Depends(get_current_user)):
+    return current_user
