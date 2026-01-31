@@ -35,11 +35,16 @@ class WordCreate(BaseModel):
 class UserBase(BaseModel):
     email: str
     password: str
+    reading_level: int
+    spelling_level: int
+    coins: int
+    badges: List[str]
     # date_created: datetime
 
 
-class UserCreate(UserBase):
-    pass
+class UserCreate(BaseModel):
+    email: str
+    password: str
 
 
 class UserResponse(BaseModel):

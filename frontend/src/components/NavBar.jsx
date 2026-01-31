@@ -1,12 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const NavBar = () => {
   const [navOpen, setNavOpen] = useState(false);
 
+  const auth = useAuth();
+  const navigate = useNavigate();
+
   // displaying/hiding mobile nav
   const toggleNav = () => {
     setNavOpen(!navOpen);
+  };
+
+  const handleLogout = () => {
+    // auth.logout();
+    navigate("/");
   };
 
   // hamburger lines
@@ -32,6 +41,7 @@ const NavBar = () => {
           <Link to="/stats" className="hover:text-black">
             Stats
           </Link>
+          {auth.user && <h1 onClick={handleLogout()}>Logout</h1>}
           <Link to="/login" className="hover:text-black">
             Login/Register
           </Link>

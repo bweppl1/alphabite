@@ -1,18 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const Stats = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    setFormData([email, password]);
+  const auth = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.email !== "" && formData.password !== "") {
+      // TODO: better form validation
+      // DEBUG
+      auth.authAction(formData, "login");
+      setError("");
+    } else {
+      setError("You must enter an email and password.");
+    }
   };
 
   const handleChange = (e) => {
-    e.preventDefault;
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -48,6 +58,7 @@ const Stats = () => {
             Submit
           </button>
         </form>
+        {error && <h1 className="text-raphaelred font-bold">{error}</h1>}
         <Link to="/register">No account? Register here.</Link>
       </div>
     </div>

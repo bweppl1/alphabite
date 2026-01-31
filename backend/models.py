@@ -1,5 +1,5 @@
 # sqlalchemy models
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import ARRAY
 
@@ -19,12 +19,8 @@ class Users(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
+    reading_level = Column(Integer, nullable=False, default=0)
+    spelling_level = Column(String, nullable=False, default=0)
+    coins = Column(Integer, nullable=False, default=0)
+    badges = Column(ARRAY(String), default=[])
     date_created = Column(DateTime, nullable=False)
-
-
-# class UserWords(Base):
-#     __tablename__ = "user_words"
-#     id = Column(Integer, primary_key=True)
-#     word_score = Column(ARRAY[Boolean])
-#     word_id = Column(Integer, ForeignKey("words.id"))
-#     user_id = Column(Integer, ForeignKey("user.id"))

@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // logout function, reset states and clear localStorage
-  const logOut = () => {
+  const logout = () => {
     setUser("");
     setToken("");
     localStorage.removeItem("site");
@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, authAction, logOut, fetchUserWithToken }}
+      value={{ user, token, authAction, logout, fetchUserWithToken }}
     >
       {children}
     </AuthContext.Provider>
