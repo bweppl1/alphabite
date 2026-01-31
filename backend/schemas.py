@@ -33,10 +33,9 @@ class WordCreate(BaseModel):
 
 
 class UserBase(BaseModel):
-    user_id: int
     email: str
     password: str
-    date_created: datetime
+    # date_created: datetime
 
 
 class UserCreate(UserBase):

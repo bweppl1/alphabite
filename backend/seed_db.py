@@ -1,14 +1,28 @@
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 from fastapi import Depends
 
 from .database import engine, get_db
-from .models import Words, Users, Base
+from .models import Words, Base
 from .seed_words import words_data
 
 
-# truncate table function
+# clear data
 def reset_db(db=Depends(get_db)):
-    pass
+    db.execute(
+        text(
+            """
+                    TRUNCATE TABLE
+                    users
+                    RESTART IDENTITY CASCADE
+                    """
+        )
+    )
+    db.commit()
+
+    # reset table on schema change
+    # with engine.begin() as conn:
+    #     conn.execute(text("DROP TABLE IF EXISTS users CASCADE;"))
 
 
 # seed databse wih seed_words.py dict

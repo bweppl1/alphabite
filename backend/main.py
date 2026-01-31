@@ -2,7 +2,7 @@ import uvicorn  # server
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import words
+from .routers import words, auth
 from .core.config import CORS_ORIGINS
 
 app = FastAPI(debug=True)
@@ -17,13 +17,14 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello World!"}
+# @app.get("/")
+# def read_root():
+#     return {"message": "Hello World!"}
 
 
 # routes
 app.include_router(words.router)
+app.include_router(auth.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

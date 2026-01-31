@@ -1,16 +1,22 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 
 const Stats = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
+  const auth = useAuth();
+
   const handleSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     if (formData.email !== "" && formData.password !== "") {
       // TODO: better form validation
-      useAuth.authAction(formData, "register");
+      // DEBUG
+      console.log(
+        `form data: ${formData}, email: ${formData.email}; password: ${formData.password}`,
+      );
+      auth.authAction(formData, "register");
       setError("");
     } else {
       setError("You must enter an email and password.");
@@ -59,7 +65,6 @@ const Stats = () => {
               type="password"
               name="confirmpassword"
               id="confirmpassword"
-              onChange={handleChange}
               className="p-2 bg-vanilla rounded-xl text-charcoal"
             />
           </div>

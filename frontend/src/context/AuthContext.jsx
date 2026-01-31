@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
     setUser("");
     setToken("");
     localStorage.removeItem("site");
-    navigate("/site");
+    navigate("/stats");
     setLoading(false);
   };
 
@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
     if (storedToken) {
       fetchUserWithToken(storedToken);
     }
+    setLoading(false);
   }, []);
 
   // if token exists, check for valid user, else clear token
@@ -76,7 +77,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={(user, token, authAction, logOut, fetchUserWithToken)}
+      value={{ user, token, authAction, logOut, fetchUserWithToken }}
     >
       {children}
     </AuthContext.Provider>

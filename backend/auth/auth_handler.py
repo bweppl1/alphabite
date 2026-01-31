@@ -15,8 +15,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
 # get_user - fetch user with email
-def get_used(email):
-    pass
+def get_user(email: str, db: Session):
+    db_user = db.query(Users).filter(Users.email == email).first()
+    return db_user
 
 
 # verify_password - take plain password compare hash
