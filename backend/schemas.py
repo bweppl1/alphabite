@@ -1,5 +1,5 @@
 # pydantic schemas
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
 from datetime import datetime
 
@@ -45,6 +45,8 @@ class UserCreate(UserBase):
 class UserResponse(BaseModel):
     user_id: int
     email: str
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 ##### Authentication schemas

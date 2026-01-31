@@ -27,12 +27,14 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     )
     db.add(db_user)
     db.commit()
-    db.close()
 
+    user_id = db_user.id
+    user_email = db_user.email
     # token
     token_expires = timedelta(minutes=TOKEN_EXPIRES_MINUTES)
     token = create_token(data={"sub": db_user.email}, expires_delta=token_expires)
-    return {"user_data": db_user, "token": token}
+    print(f"user data: {db_user}")
+    return {"user_data": {"user_id": user_id, "email": user_email}, "token": token}
 
 
 # login
