@@ -77,3 +77,8 @@ class TokenBase(BaseModel):
 
 class TokenData(BaseModel):
     email: str
+
+
+#### Points schemeas
+class PointResponse(BaseModel):
+    points: int

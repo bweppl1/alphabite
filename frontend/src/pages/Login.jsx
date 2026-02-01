@@ -12,7 +12,6 @@ const Stats = () => {
     e.preventDefault();
     if (formData.email !== "" && formData.password !== "") {
       // TODO: better form validation
-      // DEBUG
       auth.authAction(formData, "login");
       setError("");
     } else {

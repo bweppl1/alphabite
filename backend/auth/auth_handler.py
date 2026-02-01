@@ -15,27 +15,38 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
 # get_user - fetch user with email
-def get_user(email: str, db: Session = Depends(get_db)):
+def get_user(email: str, db: Session):
     db_user = db.query(Users).filter(Users.email == email).first()
     return db_user
 
 
 # verify_password - take plain password compare hash
-def verify_password(regular_password, hashed_password):
+def verify_password(regular_password, hashed_password) -> bool:
+    print(f"reg pw: {regular_password}; hashed: {hashed_password}")
     return bcrypt.checkpw(
         regular_password.encode("utf-8"), hashed_password.encode("utf-8")
     )
 
 
 # get_hashed_password - take plain email, return hashed
-def get_hashed_password(regular_password):
+def get_hashed_password(regular_password: str):
     print(f"Hashing password: {regular_password}")  # DEBUG
     return bcrypt.hashpw(regular_password.encode("utf-8"), bcrypt.gensalt()).decode(
         "utf-8"
     )
 
 
-# authenticate_user - e-mail, password verify
+# authenticate_user - e-mail to fetch user, password verify vs fetched user
+def authenticate_user(email: str, password: str, db: Session):
+    user = get_user(email, db)
+    if not user:
+        return False
+    print(f"hashed pw: {user.password}; pw: {password}")
+    if not verify_password(password, user.password):
+        print("pw error")
+        return False
+    print("pw verified")
+    return user
 
 
 ### TOKEN

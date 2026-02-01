@@ -9,6 +9,7 @@ from ..auth.auth_handler import (
     get_hashed_password,
     create_token,
     get_current_user,
+    authenticate_user,
 )
 from ..core.config import TOKEN_EXPIRES_MINUTES
 
@@ -39,8 +40,20 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 # login
 @router.post("/auth/login", response_model=schemas.LoginResponse)
-def login_user(email, regular_password, db: Session = Depends(get_db)):
-    pass
+def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_email = user.email
+    db_password = user.password
+    db_user = authenticate_user(db_email, db_password, db)
+    if not db_user:
+        raise HTTPException(status_code=401, detail="Authentication error.")
+
+    user_id = db_user.id
+    user_email = db_user.email
+
+    # token
+    token_expires = timedelta(minutes=TOKEN_EXPIRES_MINUTES)
+    token = create_token(data={"sub": user.email}, expires_delta=token_expires)
+    return {"user_data": {"user_id": user_id, "email": user_email}, "token": token}
 
 
 # verify current user, api call sends token, this funciton sends token to 'get_current_user'
