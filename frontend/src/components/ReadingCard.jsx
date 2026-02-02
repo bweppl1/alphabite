@@ -9,7 +9,7 @@ import correctSound from "../assets/sounds/correct.mp3";
 import incorrectSound from "../assets/sounds/incorrect.wav";
 import roundEndSound from "../assets/sounds/round_complete.wav";
 import { useAuth } from "../context/AuthContext";
-import { update_reading_points } from "../services/user";
+import { update_coins } from "../services/user";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -80,7 +80,7 @@ const ReadingCard = () => {
   useEffect(() => {
     if (currentRound > 10) {
       // round end tasks
-      update_reading_points(correctCount);
+      update_coins(user.email, correctCount);
       setGameActive(false);
       audio.roundEnd.currentTime = 0; // ensure sound starts at beginning
       audio.roundEnd.play(); // play sound
@@ -158,7 +158,11 @@ const ReadingCard = () => {
         </span>{" "}
         Coins!
       </h3>
-      {user && <h4 className="text-raphaelred">{user.coins}</h4>}
+      {user && (
+        <h4 className="text-2xl px-6 py-2 bg-bananayellow rounded-xl">
+          Total Coins: {user.coins + correctCount}
+        </h4>
+      )}
       <div className="flex flex-row gap-5">
         <Link
           to="/reading_game"
@@ -169,7 +173,7 @@ const ReadingCard = () => {
         </Link>
         <Link
           to="/spelling_game"
-          className="px-6 py-2 bg-bananayellow rounded-xl"
+          className="px-6 py-2 bg-michelangeloorange rounded-xl"
         >
           Try Spelling
         </Link>

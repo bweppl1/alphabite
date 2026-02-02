@@ -25,40 +25,39 @@ const Stats = () => {
   };
 
   return (
-    <div className="flex flex-col bg-vanilla p-2 text-center min-h-screen">
-      <h1 className="text-3xl text-charcoal font-black">LOGIN</h1>
-      <div className="w-full max-w-xl mx-auto rounded-xl bg-darkvanilla p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="flex gap-5 items-center m-2">
-            <label htmlFor="email" className="w-1/3 text-right">
-              Email:
-            </label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              onChange={handleChange}
-              className="p-2 bg-vanilla rounded-xl text-charcoal"
-            />
-          </div>
-          <div className="flex gap-5 items-center m-2">
-            <label htmlFor="password" className="w-1/3 text-right">
-              Password:
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={handleChange}
-              className="p-2 bg-vanilla rounded-xl text-charcoal"
-            />
-          </div>
-          <button className="m-2 border-1 border-charcoal text-charcoal py-2 px-6 rounded-xl hover:font-black cursor-pointer">
+    <div className="flex flex-col bg-vanilla p-2 text-center min-h-screen gap-5 pt-16">
+      <h1 className="text-3xl md:text-5xl text-charcoal font-black">LOGIN</h1>
+      <div className="w-full max-w-md mx-auto rounded-xl bg-darkvanilla p-6">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label htmlFor="email" className="text-left p-2 font-bold">
+            Email
+          </label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            onChange={handleChange}
+            className="p-2 bg-vanilla rounded-xl text-charcoal"
+          />
+          <label htmlFor="password" className="text-left p-2 font-bold">
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handleChange}
+            className="p-2 bg-vanilla rounded-xl text-charcoal"
+          />
+          <button className="m-2 bg-lgreen text-charcoal py-2 px-6 rounded-xl hover:font-black cursor-pointer">
             Submit
           </button>
         </form>
         {error && <h1 className="text-raphaelred font-bold">{error}</h1>}
-        <Link to="/register">No account? Register here.</Link>
+        No account?{" "}
+        <Link to="/register" className="text-raphaelred hover:font-bold">
+          Register here.
+        </Link>
       </div>
     </div>
   );

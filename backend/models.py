@@ -20,7 +20,7 @@ class Users(Base):
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     reading_level = Column(Integer, nullable=False, default=0)
-    spelling_level = Column(String, nullable=False, default=0)
+    spelling_level = Column(Integer, nullable=False, default=0)
     coins = Column(Integer, nullable=False, default=0)
     badges = Column(ARRAY(String), default=[])
     date_created = Column(DateTime, nullable=False)

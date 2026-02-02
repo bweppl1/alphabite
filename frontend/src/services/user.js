@@ -3,19 +3,18 @@ import axios from "axios";
 const API_BASE = "http://localhost:8000";
 
 // update reading points
-export const update_reading_points = async (email, points) => {
+export const update_coins = async (email, coins) => {
   try {
-    const response = axios.put(
-      `${API_BASE}/user/update_reading_points`,
-      email,
-      points,
+    const response = await axios.put(
+      `${API_BASE}/update_coins`,
+      { email, coins },
       {
         headers: { "Content-Type": "application/json" },
       },
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating reading points:", error);
+    console.error("Error updating coins:", error);
   }
 };
 

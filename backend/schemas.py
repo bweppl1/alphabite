@@ -85,5 +85,10 @@ class TokenData(BaseModel):
 #### Points schemeas
 
 
-class PointResponse(BaseModel):
-    points: int
+class CoinBase(BaseModel):
+    email: str
+    coins: int
+
+
+class CoinResponse(BaseModel):
+    coins: int
