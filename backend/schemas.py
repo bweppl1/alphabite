@@ -39,7 +39,6 @@ class UserBase(BaseModel):
     spelling_level: int
     coins: int
     badges: List[str]
-    # date_created: datetime
 
 
 class UserCreate(BaseModel):
@@ -50,8 +49,12 @@ class UserCreate(BaseModel):
 class UserResponse(BaseModel):
     user_id: int
     email: str
+    reading_level: int
+    spelling_level: int
+    coins: int
+    badges: List[str]
 
-    model_config = ConfigDict(from_attributes=True)
+    # model_config = ConfigDict(from_attributes=True)
 
 
 ##### Authentication schemas
@@ -80,5 +83,7 @@ class TokenData(BaseModel):
 
 
 #### Points schemeas
+
+
 class PointResponse(BaseModel):
     points: int

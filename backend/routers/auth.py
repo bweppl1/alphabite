@@ -31,11 +31,26 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     user_id = db_user.id
     user_email = db_user.email
+    user_coins = db_user.coins
+    user_badges = db_user.badges
+    user_reading_level = db_user.reading_level
+    user_spelling_level = db_user.spelling_level
+
     # token
     token_expires = timedelta(minutes=TOKEN_EXPIRES_MINUTES)
     token = create_token(data={"sub": db_user.email}, expires_delta=token_expires)
     print(f"user data: {db_user}")
-    return {"user_data": {"user_id": user_id, "email": user_email}, "token": token}
+    return {
+        "user_data": {
+            "user_id": user_id,
+            "email": user_email,
+            "coins": user_coins,
+            "badges": user_badges,
+            "reading_level": user_reading_level,
+            "spelling_level": user_spelling_level,
+        },
+        "token": token,
+    }
 
 
 # login
@@ -49,11 +64,25 @@ def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     user_id = db_user.id
     user_email = db_user.email
+    user_coins = db_user.coins
+    user_badges = db_user.badges
+    user_reading_level = db_user.reading_level
+    user_spelling_level = db_user.spelling_level
 
     # token
     token_expires = timedelta(minutes=TOKEN_EXPIRES_MINUTES)
     token = create_token(data={"sub": user.email}, expires_delta=token_expires)
-    return {"user_data": {"user_id": user_id, "email": user_email}, "token": token}
+    return {
+        "user_data": {
+            "user_id": user_id,
+            "email": user_email,
+            "coins": user_coins,
+            "badges": user_badges,
+            "reading_level": user_reading_level,
+            "spelling_level": user_spelling_level,
+        },
+        "token": token,
+    }
 
 
 # verify current user, api call sends token, this funciton sends token to 'get_current_user'

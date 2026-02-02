@@ -8,6 +8,8 @@ import { get_decoy_word } from "../services/word";
 import correctSound from "../assets/sounds/correct.mp3";
 import incorrectSound from "../assets/sounds/incorrect.wav";
 import roundEndSound from "../assets/sounds/round_complete.wav";
+import { useAuth } from "../context/AuthContext";
+import { update_reading_points } from "../services/user";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -24,6 +26,9 @@ const ReadingCard = () => {
     incorrect: new Audio(incorrectSound),
     roundEnd: new Audio(roundEndSound),
   });
+
+  const auth = useAuth();
+  const user = auth.user;
 
   // fetch word data on initial render
   useEffect(() => {
@@ -45,7 +50,7 @@ const ReadingCard = () => {
     const newRoundWord = await get_random_word();
     console.log(`random word id: ${newRoundWord.word_id}`);
     let usedWords = [newRoundWord.word_id];
-    const newDecoyWord1 = await get_decoy_word(usedWords); // need to get used word ids to pass in
+    const newDecoyWord1 = await get_decoy_word(usedWords);
     usedWords.push(newDecoyWord1.word_id);
     const newDecoyWord2 = await get_decoy_word(usedWords);
 
@@ -75,6 +80,7 @@ const ReadingCard = () => {
   useEffect(() => {
     if (currentRound > 10) {
       // round end tasks
+      update_reading_points(correctCount);
       setGameActive(false);
       audio.roundEnd.currentTime = 0; // ensure sound starts at beginning
       audio.roundEnd.play(); // play sound
@@ -145,9 +151,14 @@ const ReadingCard = () => {
   return (
     <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl items-center my-2 md:my-5 py-10 md:py-15 flex flex-col gap-5">
       <h1 className="text-4xl font-bold text-lgreen">Round Over</h1>
-      <h3 className="text-2xl text-michelangeloorange">
-        Points: {correctCount}
+      <h3 className="text-2xl text-charcoal">
+        You Earned{" "}
+        <span className="p-2 bg-raphaelred text-vanilla rounded-xl">
+          {correctCount}
+        </span>{" "}
+        Coins!
       </h3>
+      {user && <h4 className="text-raphaelred">{user.coins}</h4>}
       <div className="flex flex-row gap-5">
         <Link
           to="/reading_game"
