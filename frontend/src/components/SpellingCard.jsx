@@ -7,6 +7,8 @@ import { get_random_word } from "../services/word.js";
 import correctSound from "../assets/sounds/correct.mp3";
 import incorrectSound from "../assets/sounds/incorrect.wav";
 import roundEndSound from "../assets/sounds/round_complete.wav";
+import { useAuth } from "../context/AuthContext";
+import { update_coins } from "../services/user";
 
 const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -22,6 +24,9 @@ const SpellingCard = () => {
     incorrect: new Audio(incorrectSound),
     roundEnd: new Audio(roundEndSound),
   });
+
+  const auth = useAuth();
+  const user = auth.user;
 
   // load first word on initial render
   useEffect(() => {
@@ -52,6 +57,8 @@ const SpellingCard = () => {
   useEffect(() => {
     if (currentRound > 10) {
       // round end tasks
+      update_coins(user.email, correctCount);
+      audio.roundEnd.currentTime = 0;
       audio.roundEnd.play();
       setGameActive(false);
     }
@@ -132,9 +139,18 @@ const SpellingCard = () => {
   return (
     <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl items-center my-2 md:my-5 py-10 md:py-15 flex flex-col gap-5">
       <h1 className="text-4xl font-bold text-lgreen">Round Over</h1>
-      <h3 className="text-2xl text-michelangeloorange">
-        Points: {correctCount}
+      <h3 className="text-2xl text-charcoal">
+        You Earned{" "}
+        <span className="p-2 bg-raphaelred text-vanilla rounded-xl">
+          {correctCount}
+        </span>{" "}
+        Coins!
       </h3>
+      {user && (
+        <h4 className="text-2xl px-6 py-2 bg-bananayellow rounded-xl">
+          Total Coins: {user.coins + correctCount}
+        </h4>
+      )}
       <div className="flex flex-row gap-5">
         <Link
           to="/spelling_game"
@@ -145,7 +161,7 @@ const SpellingCard = () => {
         </Link>
         <Link
           to="/reading_game"
-          className="px-6 py-2 bg-bananayellow rounded-xl"
+          className="px-6 py-2 bg-michelangeloorange rounded-xl"
         >
           Try Reading
         </Link>

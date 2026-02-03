@@ -41,14 +41,14 @@ const NavBar = () => {
           <Link to="/stats" className="hover:text-black">
             {db_user}
           </Link>
-          {/* {db_user && ( */}
-          {/*   <h1 */}
-          {/*     onClick={() => handleLogout()} */}
-          {/*     className="hover:text-black cursor-pointer" */}
-          {/*   > */}
-          {/*     Logout */}
-          {/*   </h1> */}
-          {/* )} */}
+          {db_user && (
+            <h1
+              onClick={() => handleLogout()}
+              className="hover:text-black cursor-pointer"
+            >
+              Logout
+            </h1>
+          )}
           {!db_user && (
             <Link to="/login" className="hover:text-black">
               Login/Register

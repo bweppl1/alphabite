@@ -8,6 +8,10 @@ import { useAuth } from "../context/AuthContext";
 // protect page when not authenticated
 // fix authentication
 // add more words
+const badges = [
+  ["ten", { label: "10", bg: "bananayellow", borderColour: "raphaelred" }],
+  ["twenty", { label: "20", bg: "bananayellow", borderColour: "raphaelred" }],
+];
 
 const Stats = () => {
   const auth = useAuth();
@@ -43,19 +47,15 @@ const Stats = () => {
         {/* badges */}
         <h1 className="w-full">Badges</h1> {auth.user.badges}
         <div className="flex justify-evenly gap-5">
-          <Badge
-            badgeLabel="10"
-            badgeBorder="bananayellow"
-            badgeBg="raphaelred"
-          />
-          <Badge badgeLabel="25" badgeBorder="lgreen" badgeBg="dgreen" />
-          <Badge badgeLabel="55" badgeBorder="dgreen" badgeBg="dgreen" />
-          <Badge
-            badgeLabel="100"
-            badgeBorder="raphaelred"
-            badgeBg="bananayellow"
-          />
-          <Badge badgeLabel="10" badgeBorder="bananayellow" badgeBg="dgreen" />
+          {badges &&
+            badges.map((badge) => (
+              <Badge
+                key={badge[1].label}
+                badgeLabel={badge[1].label}
+                badgeBorder={badge[1].borderColour}
+                badgeBg={badge[1].bg}
+              />
+            ))}
         </div>
       </div>
     </div>
