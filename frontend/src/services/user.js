@@ -19,5 +19,16 @@ export const update_coins = async (email, coins) => {
 };
 
 // update spellings points
+export const update_reading_level = async (email, level) => {
+  try {
+    const response = await axios.put(`${API_BASE}/update_reading_level`, {
+      email,
+      level,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("error updating reading level", error);
+  }
+};
 
 // update badges

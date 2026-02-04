@@ -24,5 +24,15 @@ def update_coins(update_coins: schemas.CoinBase, db: Session = Depends(get_db)):
 
 
 # Update reading level
+@router.put("/update_reading_level", response_model=schemas.ReadingLevelResponse)
+def update_reading_level(
+    update_reading_level: schemas.ReadingLevelBase, db: Session = Depends(get_db)
+):
+    user = get_user(update_reading_level.email, db)
+    user.reading_level += update_reading_level.level
+    db.commit()
+
+    return {"reading_level": user.reading_level}
+
 
 # Update spelling level

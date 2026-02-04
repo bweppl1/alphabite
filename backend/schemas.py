@@ -92,3 +92,12 @@ class CoinBase(BaseModel):
 
 class CoinResponse(BaseModel):
     coins: int
+
+
+class ReadingLevelBase(BaseModel):
+    email: str
+    level: int
+
+
+class ReadingLevelResponse(BaseModel):
+    reading_level: int
