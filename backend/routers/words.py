@@ -26,14 +26,12 @@ def get_word(db: Session = Depends(get_db)):
 # get a decoy word, only sends the word and word_id; avoids fetching used_words
 @router.post("/decoy_word", response_model=schemas.DecoyWordResponse)
 def get_decoy_word(used_words: List[int], db: Session = Depends(get_db)):
-    query = (
-        db.query(models.Words)
-        .filter(models.Words.id.notin_(used_words))  # removed used_words from query
-        .order_by(func.random())
-        .first()
-    )
+    query = db.query(models.Words).filter(
+        models.Words.id.notin_(used_words)
+    )  # removed used_words from query
+    word = query.order_by(func.random()).first()
 
     return {
-        "word_id": query.id,
-        "word": query.word,
+        "word_id": word.id,
+        "word": word.word,
     }

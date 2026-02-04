@@ -68,6 +68,7 @@ def get_current_user(
         payload = jwt.decode(token, SECRET_KEY, algorithm=ALGORITHM)
         email = payload.get("sub")
         if email is None:
+            print("refetch email error")
             raise cred_exception
         token_data = TokenData(email=email)
     except InvalidTokenError as e:
@@ -75,5 +76,6 @@ def get_current_user(
 
     user = db.query(Users).filter(Users.email == token_data.email).first()
     if user is None:
+        print("refetch user error")
         raise cred_exception
     return user

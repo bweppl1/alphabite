@@ -13,7 +13,7 @@ def reset_db(db=Depends(get_db)):
         text(
             """
                     TRUNCATE TABLE
-                    users
+                    users, words
                     RESTART IDENTITY CASCADE
                     """
         )
@@ -31,7 +31,7 @@ def seed_db():
 
     with Session(engine) as db:
 
-        reset_db(db)  # clear data
+        reset_db(db)
 
         word_count = 0
 

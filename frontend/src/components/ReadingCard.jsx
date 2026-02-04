@@ -50,8 +50,10 @@ const ReadingCard = () => {
     const newRoundWord = await get_random_word();
     console.log(`random word id: ${newRoundWord.word_id}`);
     let usedWords = [newRoundWord.word_id];
+    console.log(`used words1: ${usedWords}`);
     const newDecoyWord1 = await get_decoy_word(usedWords);
     usedWords.push(newDecoyWord1.word_id);
+    console.log(`used words2: ${usedWords}`);
     const newDecoyWord2 = await get_decoy_word(usedWords);
 
     // randomize word display order

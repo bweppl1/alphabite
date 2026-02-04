@@ -54,7 +54,7 @@ class UserResponse(BaseModel):
     coins: int
     badges: List[str]
 
-    # model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True)
 
 
 ##### Authentication schemas

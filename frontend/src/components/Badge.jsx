@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 
 const Badge = ({ badgeLabel, badgeBorder, badgeBg }) => {
-  const [borderColour, setBorderColour] = useState("");
-  const [bgColour, setBgColour] = useState("");
-
-  useEffect(() => {
-    setBorderColour(badgeBorder);
-  }, []);
-
-  let badgeStyle = `flex h-35 w-35 rounded-full bg-${badgeBg} border-10 border-${badgeBorder} text-shadow-sm shadow-lg/40 shadow-amber-900`;
+  let badgeStyle = `flex h-35 w-35 rounded-full bg-${badgeBg} border-10 ${badgeBorder} text-shadow-sm shadow-lg/40 shadow-amber-900`;
 
   return (
     <div className={badgeStyle}>

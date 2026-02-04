@@ -38,16 +38,18 @@ const NavBar = () => {
           <Link to="/reading_game" className="hover:text-black">
             Read
           </Link>
-          <Link to="/stats" className="hover:text-black">
-            {db_user}
-          </Link>
           {db_user && (
-            <h1
+            <Link to="/stats" className="hover:text-black">
+              Stats
+            </Link>
+          )}
+          {db_user && (
+            <span
               onClick={() => handleLogout()}
               className="hover:text-black cursor-pointer"
             >
               Logout
-            </h1>
+            </span>
           )}
           {!db_user && (
             <Link to="/login" className="hover:text-black">
@@ -81,13 +83,32 @@ const NavBar = () => {
           >
             Read
           </Link>
-          <Link
-            to="/stats"
-            className="hover:text-michelangeloorange"
-            onClick={toggleNav}
-          >
-            Stats
-          </Link>
+          {db_user && (
+            <Link
+              to="/stats"
+              className="hover:text-michelangeloorange"
+              onClick={toggleNav}
+            >
+              Stats
+            </Link>
+          )}
+          {db_user && (
+            <span
+              onClick={() => handleLogout()}
+              className="hover:text-michelangeloorange cursor-pointer"
+            >
+              Logout
+            </span>
+          )}
+          {!db_user && (
+            <Link
+              to="/login"
+              className="hover:text-michelangeloorange"
+              onClick={toggleNav}
+            >
+              Login/Register
+            </Link>
+          )}
         </div>
         <div className="md:hidden flex items-center">
           {/* hamburger */}

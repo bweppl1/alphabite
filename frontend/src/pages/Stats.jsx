@@ -9,8 +9,14 @@ import { useAuth } from "../context/AuthContext";
 // fix authentication
 // add more words
 const badges = [
-  ["ten", { label: "10", bg: "bananayellow", borderColour: "raphaelred" }],
-  ["twenty", { label: "20", bg: "bananayellow", borderColour: "raphaelred" }],
+  [
+    "ten",
+    { label: "10", bg: "bananayellow", borderColour: "border-raphaelred" },
+  ],
+  [
+    "twenty",
+    { label: "20", bg: "bananayellow", borderColour: "border-raphaelred" },
+  ],
 ];
 
 const Stats = () => {
