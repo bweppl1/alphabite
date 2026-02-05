@@ -57,6 +57,7 @@ const SpellingCard = () => {
   useEffect(() => {
     if (currentRound > 10) {
       // round end tasks
+      update_spelling_level(user.email, 1);
       update_coins(user.email, correctCount);
       audio.roundEnd.currentTime = 0;
       audio.roundEnd.play();
