@@ -101,3 +101,12 @@ class ReadingLevelBase(BaseModel):
 
 class ReadingLevelResponse(BaseModel):
     reading_level: int
+
+
+class SpellingLevelBase(BaseModel):
+    email: str
+    level: int
+
+
+class SpellingLevelResponse(BaseModel):
+    spelling_level: int

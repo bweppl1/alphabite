@@ -36,3 +36,12 @@ def update_reading_level(
 
 
 # Update spelling level
+@router.put("/update_spelling_level", response_model=schemas.SpellingLevelResponse)
+def update_spelling_level(
+    update_spelling_level: schemas.SpellingLevelBase, db: Session = Depends(get_db)
+):
+    user = get_user(update_spelling_level.email, db)
+    user.spelling_level += update_spelling_level.level
+    db.commit()
+
+    return {"spelling_level": user.spelling_level}

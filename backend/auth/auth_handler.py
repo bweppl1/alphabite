@@ -78,4 +78,5 @@ def get_current_user(
     if user is None:
         print("refetch user error")
         raise cred_exception
+    print(f"refetchin user_id: {user.id}")
     return user

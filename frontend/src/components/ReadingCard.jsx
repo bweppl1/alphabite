@@ -9,11 +9,7 @@ import correctSound from "../assets/sounds/correct.mp3";
 import incorrectSound from "../assets/sounds/incorrect.wav";
 import roundEndSound from "../assets/sounds/round_complete.wav";
 import { useAuth } from "../context/AuthContext";
-import {
-  update_coins,
-  update_reading_level,
-  update_spelling_level,
-} from "../services/user";
+import { update_coins, update_reading_level } from "../services/user";
 
 const ReadingCard = () => {
   const [gameActive, setGameActive] = useState(true);
@@ -87,9 +83,7 @@ const ReadingCard = () => {
     if (currentRound > 10) {
       // round end tasks
       // increase reading level if 7/10 correct or better
-      if (correctCount > 6) {
-        update_reading_level(user.email, 1);
-      }
+      update_reading_level(user.email, 1);
       update_coins(user.email, correctCount);
       setGameActive(false);
       audio.roundEnd.currentTime = 0; // ensure sound starts at beginning

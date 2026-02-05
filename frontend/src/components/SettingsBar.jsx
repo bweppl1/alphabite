@@ -28,7 +28,7 @@ const SettingsBar = ({ gameType, correctCount }) => {
         className={`border mx-auto border-charcoal bg-charcoal p-2 rounded-b-xl max-w-5xl ${settingsOpen ? "" : "hidden"}`}
       >
         <div className="rounded-b-xl rounded-tl-xl bg-vanilla text-charcoal p-4">
-          Settings Window
+          You weren't supposed to click here yet!
         </div>
       </div>
     </div>

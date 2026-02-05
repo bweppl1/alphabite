@@ -8,7 +8,7 @@ import correctSound from "../assets/sounds/correct.mp3";
 import incorrectSound from "../assets/sounds/incorrect.wav";
 import roundEndSound from "../assets/sounds/round_complete.wav";
 import { useAuth } from "../context/AuthContext";
-import { update_coins } from "../services/user";
+import { update_coins, update_spelling_level } from "../services/user";
 
 const SpellingCard = () => {
   const [gameActive, setGameActive] = useState(true);

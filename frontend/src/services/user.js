@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_BASE = "http://localhost:8000";
 
-// update reading points
+// update coins
 export const update_coins = async (email, coins) => {
   try {
     const response = await axios.put(
@@ -18,17 +18,36 @@ export const update_coins = async (email, coins) => {
   }
 };
 
-// update spellings points
+// update reading level
 export const update_reading_level = async (email, level) => {
   try {
-    const response = await axios.put(`${API_BASE}/update_reading_level`, {
-      email,
-      level,
-    });
+    const response = await axios.put(
+      `${API_BASE}/update_reading_level`,
+      {
+        email,
+        level,
+      },
+      { headers: { Content_Type: "application/json" } },
+    );
     return response.data;
   } catch (error) {
     console.error("error updating reading level", error);
   }
 };
 
-// update badges
+// update spelling level
+export const update_spelling_level = async (email, level) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE}/update_spelling_level`,
+      {
+        email,
+        level,
+      },
+      { headers: { Content_Type: "application/json" } },
+    );
+    return response.data;
+  } catch (error) {
+    console.error("error updating spelling level", error);
+  }
+};

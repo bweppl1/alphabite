@@ -88,4 +88,11 @@ def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 # verify current user, api call sends token, this funciton sends token to 'get_current_user'
 @router.get("/auth/me", response_model=schemas.UserResponse)
 def fetch_current_user(current_user: models.Users = Depends(get_current_user)):
-    return current_user
+    return {
+        "user_id": current_user.id,
+        "email": current_user.email,
+        "reading_level": current_user.reading_level,
+        "spelling_level": current_user.spelling_level,
+        "coins": current_user.coins,
+        "badges": current_user.badges,
+    }

@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
   // check for user on initial render with token
   useEffect(() => {
     const storedToken = localStorage.getItem("site");
-    if (storedToken) {
+    if (storedToken !== "") {
       fetchUserWithToken(storedToken);
     }
     setLoading(false);
@@ -62,13 +62,17 @@ const AuthProvider = ({ children }) => {
         const user_data = await response.json();
         setUser(user_data);
         setToken(storedToken);
+        localStorage.setItem("site", storedToken);
       } else {
         localStorage.removeItem("site");
+        setUser("");
+        setToken("");
       }
     } catch (error) {
       console.error("Error re: token", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   if (loading) {
