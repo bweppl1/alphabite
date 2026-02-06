@@ -5,9 +5,9 @@ import EmojiDisplay from "../components/EmojiDisplay.jsx";
 import { get_random_word } from "../services/word";
 import { get_decoy_word } from "../services/word";
 // sounds
-import correctSound from "../assets/sounds/correct.mp3";
-import incorrectSound from "../assets/sounds/incorrect.wav";
-import roundEndSound from "../assets/sounds/round_complete.wav";
+import correctSound from "../../public/assets/sounds/correct.mp3";
+import incorrectSound from "../../public/assets/sounds/incorrect.wav";
+import roundEndSound from "../../public/assets/sounds/round_complete.wav";
 import { useAuth } from "../context/AuthContext";
 import { update_coins, update_reading_level } from "../services/user";
 
@@ -125,11 +125,11 @@ const ReadingCard = () => {
   if (gameActive) {
     return (
       <div className="w-full md:max-w-5xl flex flex-col text-center mx-auto p-2">
-        <h2 className="text-xl md:text-xl text-vanilla bg-dgreen px-6 py-2 rounded-xl">
+        <h2 className="text-xl md:text-xl text-vanilla bg-lgreen px-6 py-2 rounded-xl">
           {roundDisplay}
         </h2>
         <SettingsBar gameType="Reading" correctCount={correctCount} />
-        <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
+        <div className="max-w-3xl mx-auto w-full bg-darkvanilla shadow-lg rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
           <EmojiDisplay emoji={currentEmoji} />
 
@@ -139,7 +139,7 @@ const ReadingCard = () => {
               currentRoundData.map((word) => (
                 <div
                   key={word.id}
-                  className="py-2 px-6 rounded-xl text-2xl text-charcoal cursor-pointer hover:bg-michelangeloorange bg-bananayellow"
+                  className="py-2 px-6 rounded-xl text-lg md:text-2xl text-charcoal cursor-pointer hover:bg-michelangeloorange bg-bananayellow"
                   onClick={() => checkAnswer(word.word)}
                 >
                   {word.word}

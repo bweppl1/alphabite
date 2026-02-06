@@ -4,9 +4,9 @@ import SettingsBar from "../components/SettingsBar";
 import EmojiDisplay from "../components/EmojiDisplay";
 import { get_random_word } from "../services/word.js";
 // sounds
-import correctSound from "../assets/sounds/correct.mp3";
-import incorrectSound from "../assets/sounds/incorrect.wav";
-import roundEndSound from "../assets/sounds/round_complete.wav";
+import correctSound from "../../public/assets/sounds/correct.mp3";
+import incorrectSound from "../../public/assets/sounds/incorrect.wav";
+import roundEndSound from "../../public/assets/sounds/round_complete.wav";
 import { useAuth } from "../context/AuthContext";
 import { update_coins, update_spelling_level } from "../services/user";
 
@@ -101,11 +101,11 @@ const SpellingCard = () => {
   if (gameActive) {
     return (
       <div className="w-full md:max-w-5xl flex flex-col text-center mx-auto p-2">
-        <h2 className="text-xl md:text-xl text-vanilla bg-dgreen px-6 py-2 rounded-xl">
+        <h2 className="text-xl md:text-xl text-vanilla bg-lgreen py-2 rounded-xl">
           {roundDisplay}
         </h2>
         <SettingsBar gameType="Spelling" correctCount={correctCount} />
-        <div className="max-w-3xl mx-auto w-full bg-darkvanilla rounded-xl gap-5 p-2 md:p-5 flex flex-col">
+        <div className="max-w-3xl mx-auto w-full bg-darkvanilla shadow-lg rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
           <EmojiDisplay emoji={currentEmoji} />
 
@@ -121,15 +121,15 @@ const SpellingCard = () => {
           <div className="flex flex-row w-full gap-5 py-2 md:py-4 justify-center">
             <h2
               onClick={() => checkAnswer()}
-              className="py-2 px-6 bg-lgreen rounded-xl font-charcoal cursor-pointer"
+              className="py-2 px-6 bg-darkvanilla border-2 border-lgreen text-lgreen font-bold hover:bg-vanilla rounded-xl cursor-pointer"
             >
-              Submit
+              SUBMIT
             </h2>
             <h2
               onClick={() => passWord()}
-              className="py-2 px-6 bg-raphaelred rounded-xl font-lightcharcoal cursor-pointer"
+              className="py-2 px-6 bg-darkvanilla border-2 border-raphaelred text-raphaelred font-bold hover:bg-vanilla rounded-xl cursor-pointer"
             >
-              Pass
+              PASS
             </h2>
           </div>
         </div>
