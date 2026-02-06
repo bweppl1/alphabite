@@ -1,13 +1,47 @@
 import Badge from "../components/Badge";
 import { useAuth } from "../context/AuthContext";
+import { useState, useEffect } from "react";
 
+// temporary badge array; will move to database
 const badges = [
-  [10, { label: "10", bg: "bananayellow", borderColour: "border-raphaelred" }],
-  [25, { label: "25", bg: "lgreen", borderColour: "border-dgreen" }],
+  [1, { label: "10", bg: "bananayellow", borderColour: "border-raphaelred" }],
+  [5, { label: "25", bg: "lgreen", borderColour: "border-dgreen" }],
 ];
 
 const Stats = () => {
+  const [badgeScore, setBadgeScore] = useState("");
+  const [earnedBadges, setEarnedBadges] = useState([]);
+
   const auth = useAuth();
+
+  // get latest user stats
+  useEffect(() => {
+    const storedToken = localStorage.getItem("site");
+    if (storedToken) {
+      auth.fetchUserWithToken(storedToken);
+    }
+  }, []);
+
+  // calculate badgeScore
+  useEffect(() => {
+    const levelSum = auth.user.reading_level + auth.user.spelling_level;
+    console.log(`reading_level: ${auth.user.reading_level}`);
+    setBadgeScore(levelSum);
+
+    const earnedBadgesList = [];
+    const badgeCount = badges.length;
+    console.log(`earned badges: ${earnedBadgesList}; levelSum: ${levelSum}`);
+
+    for (let i = 0; i < badgeCount; i++) {
+      if (badges[i][0] < badgeScore) {
+        earnedBadgesList.push(badges[i]);
+      }
+      setEarnedBadges(earnedBadgesList);
+      console.log(
+        `2.earned badges: ${earnedBadgesList}; levelSum: ${levelSum}`,
+      );
+    }
+  }, [auth.user]);
 
   return (
     <div className="flex flex-col bg-vanilla p-2 text-center min-h-screen gap-5 pt-16">
@@ -43,8 +77,8 @@ const Stats = () => {
         {/* badges */}
         <h1 className="w-full">Badges</h1>
         <div className="flex justify-evenly gap-5">
-          {badges &&
-            badges.map((badge) => (
+          {earnedBadges &&
+            earnedBadges.map((badge) => (
               <Badge
                 key={badge[1].label}
                 badgeLabel={badge[1].label}
