@@ -107,7 +107,7 @@ const SpellingCard = () => {
         <SettingsBar gameType="Spelling" correctCount={correctCount} />
         <div className="max-w-3xl mx-auto w-full bg-darkvanilla shadow-lg rounded-xl gap-5 p-2 md:p-5 flex flex-col">
           {/* word image */}
-          <EmojiDisplay emoji={currentEmoji} />
+          <EmojiDisplay emoji={currentEmoji} title={currentWord} />
 
           {/* user input */}
           <input
@@ -162,7 +162,7 @@ const SpellingCard = () => {
         </Link>
         <Link
           to="/reading_game"
-          className="py-2 px-6 bg-lgreen text-vanilla font-bold hover:-translate-y-1 rounded-xl cursor-pointer"
+          className="py-2 px-6 bg-michelangeloorange text-vanilla font-bold hover:-translate-y-1 rounded-xl cursor-pointer"
         >
           Try Reading
         </Link>

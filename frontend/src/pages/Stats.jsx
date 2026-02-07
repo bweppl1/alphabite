@@ -1,16 +1,20 @@
 import Badge from "../components/Badge";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // temporary badge array; will move to database
 const badges = [
-  [1, { label: "10", bg: "bananayellow", borderColour: "border-raphaelred" }],
-  [5, { label: "25", bg: "lgreen", borderColour: "border-dgreen" }],
+  [1, { label: "1", bg: "charcoal", borderColour: "border-bananayellow" }],
+  [10, { label: "10", bg: "bananayellow", borderColour: "border-raphaelred" }],
+  [25, { label: "25", bg: "lgreen", borderColour: "border-dgreen" }],
 ];
 
 const Stats = () => {
   const [badgeScore, setBadgeScore] = useState("");
   const [earnedBadges, setEarnedBadges] = useState([]);
+  const [readingBar, setReadingBar] = useState("");
+  const [spellingBar, setSpellingBar] = useState("");
 
   const auth = useAuth();
 
@@ -43,6 +47,14 @@ const Stats = () => {
     }
   }, [auth.user]);
 
+  // set spelling & reading bar progress
+  useEffect(() => {
+    const readingProgress = auth.user.reading_level;
+    const spellingProgress = auth.user.spelling_level;
+    setReadingBar(readingProgress);
+    setSpellingBar(spellingProgress);
+  }, [auth.user.spelling_level, auth.user.reading_level]);
+
   return (
     <div className="flex flex-col bg-vanilla p-2 text-center min-h-screen gap-5 pt-16">
       <h1 className="text-3xl md:text-5xl text-charcoal font-black">STATS</h1>
@@ -58,18 +70,38 @@ const Stats = () => {
       <div className="w-full max-w-5xl mx-auto rounded-xl flex gap-5 items-center text-2xl">
         {/* reading stats */}
         <div className="flex flex-col gap-2 flex-1 bg-raphaelred rounded-xl shadow-xl p-5">
-          <h1 className="font-bold text-lg md:text-2xl">READING</h1>
+          <Link
+            to="/reading"
+            className="font-bold text-lg md:text-2xl hover:underline"
+          >
+            READING
+          </Link>
           <h2 className="text-sm md:text-lg text-charcoal">Current Level</h2>
-          <div className="bg-linear-to-r from-lgreen from-10% to-white to-10% rounded-xl shadow-xl font-black">
+          <div
+            className="rounded-xl shadow-xl font-black"
+            style={{
+              background: `linear-gradient(to right, #4db791 ${readingBar || 0}%, #FFFFFF ${readingBar || 0}%)`,
+            }}
+          >
             {auth.user.reading_level}
           </div>
         </div>
 
         {/* spelling stats */}
         <div className="flex flex-col gap-2 flex-1 bg-michelangeloorange rounded-xl shadow-xl p-5">
-          <h1 className="font-bold text-lg md:text-2xl">SPELLING</h1>
+          <Link
+            to="/spelling"
+            className="font-bold text-lg md:text-2xl hover:underline"
+          >
+            SPELLING
+          </Link>
           <h2 className="text-sm md:text-lg text-charcoal">Current Level</h2>
-          <div className="bg-linear-to-r from-lgreen from-10% to-white to-10% rounded-xl shadow-xl font-black">
+          <div
+            className="rounded-xl shadow-xl font-black"
+            style={{
+              background: `linear-gradient(to right, #4db791 ${spellingBar || 0}%, #FFFFFF ${spellingBar || 0}%)`,
+            }}
+          >
             {auth.user.spelling_level}
           </div>
         </div>

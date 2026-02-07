@@ -112,7 +112,7 @@ const NavBar = () => {
           {db_user && (
             <span
               onClick={() => handleLogout()}
-              className="hover:text-michelangeloorange cursor-pointer"
+              className="hover:text-bananayellow cursor-pointer"
             >
               Logout
             </span>
@@ -120,7 +120,7 @@ const NavBar = () => {
           {!db_user && (
             <Link
               to="/login"
-              className="hover:text-michelangeloorange"
+              className="hover:text-bananayellow"
               onClick={toggleNav}
             >
               Login/Register
