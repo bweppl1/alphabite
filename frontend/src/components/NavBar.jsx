@@ -24,35 +24,52 @@ const NavBar = () => {
   return (
     <div className="w-screen border-b text-charcoal bg-vanilla border-darkvanilla">
       <div className="md:max-w-5xl w-full flex flex-row mx-auto p-5 justify-between">
-        <Link to="/" className="text-3xl bold">
-          Alpha<span className="font-black">Bite</span>
+        <Link to="/" className="flex text-3xl bold">
+          <h1 className="-rotate-15 hover:rotate-20">🍎</h1>
+          Alpha
+          <span className="font-black">Bite</span>
         </Link>
         {/* desktop nav */}
         <div className="hidden md:flex flex-row gap-5 text-lg text-lightcharcoal justify-center">
-          <Link to="/" className="hover:text-black">
+          <Link
+            to="/"
+            className="border-b-4 border-vanilla hover:border-b-raphaelred hover:text-black"
+          >
             Home
           </Link>
-          <Link to="/spelling_game" className="hover:text-black">
+          <Link
+            to="/spelling_game"
+            className="border-b-4 border-vanilla hover:border-b-michelangeloorange hover:text-black"
+          >
             Spell
           </Link>
-          <Link to="/reading_game" className="hover:text-black">
+          <Link
+            to="/reading_game"
+            className="border-b-4 border-vanilla hover:border-b-lgreen hover:text-black"
+          >
             Read
           </Link>
           {db_user && (
-            <Link to="/stats" className="hover:text-black">
+            <Link
+              to="/stats"
+              className="border-b-4 border-vanilla hover:border-b-bananayellow hover:text-black"
+            >
               Stats
             </Link>
           )}
           {db_user && (
             <span
               onClick={() => handleLogout()}
-              className="hover:text-black cursor-pointer"
+              className="border-b-4 border-vanilla hover:border-b-raphaelred hover:text-black cursor-pointer"
             >
               Logout
             </span>
           )}
           {!db_user && (
-            <Link to="/login" className="hover:text-black">
+            <Link
+              to="/login"
+              className="border-b-4 border-vanilla hover:border-b-michelangeloorange hover:text-black"
+            >
               Login/Register
             </Link>
           )}

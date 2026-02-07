@@ -170,14 +170,14 @@ const ReadingCard = () => {
       <div className="flex flex-row gap-5">
         <Link
           to="/reading_game"
-          className="px-6 py-2 bg-lgreen rounded-xl"
+          className="py-2 px-6 bg-lgreen text-vanilla font-bold hover:-translate-y-1 rounded-xl cursor-pointer"
           onClick={() => playAgain()}
         >
           Play Again
         </Link>
         <Link
           to="/spelling_game"
-          className="px-6 py-2 bg-michelangeloorange rounded-xl"
+          className="py-2 px-6 bg-michelangeloorange text-vanilla font-bold hover:-translate-y-1 rounded-xl cursor-pointer"
         >
           Try Spelling
         </Link>

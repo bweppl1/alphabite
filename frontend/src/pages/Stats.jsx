@@ -46,7 +46,7 @@ const Stats = () => {
   return (
     <div className="flex flex-col bg-vanilla p-2 text-center min-h-screen gap-5 pt-16">
       <h1 className="text-3xl md:text-5xl text-charcoal font-black">STATS</h1>
-      <div className="w-full max-w-5xl mx-auto rounded-xl bg-darkvanilla p-6 flex justify-between items-center">
+      <div className="w-full max-w-5xl mx-auto rounded-xl shadow-xl bg-darkvanilla p-6 flex justify-between items-center">
         <h1 className="text-lg md:text-2xl">User: {auth.user.email}</h1>
         <span className="px-6 py-2 bg-bananayellow rounded-xl flex items-center gap-2">
           <span className="text-md md:text-lg">Coins </span>
@@ -57,23 +57,25 @@ const Stats = () => {
       </div>
       <div className="w-full max-w-5xl mx-auto rounded-xl flex gap-5 items-center text-2xl">
         {/* reading stats */}
-        <div className="flex flex-col gap-5 flex-1 bg-raphaelred rounded-xl p-5">
-          <h1 className="font-bold">Reading Level</h1>
-          <span className="bg-vanilla rounded-xl">
+        <div className="flex flex-col gap-2 flex-1 bg-raphaelred rounded-xl shadow-xl p-5">
+          <h1 className="font-bold text-lg md:text-2xl">READING</h1>
+          <h2 className="text-sm md:text-lg text-charcoal">Current Level</h2>
+          <div className="bg-linear-to-r from-lgreen from-10% to-white to-10% rounded-xl shadow-xl font-black">
             {auth.user.reading_level}
-          </span>
+          </div>
         </div>
 
         {/* spelling stats */}
-        <div className="flex flex-col gap-5 flex-1 bg-michelangeloorange rounded-xl p-5">
-          <h1 className="font-bold">Spelling Level</h1>
-          <span className="bg-vanilla rounded-xl">
+        <div className="flex flex-col gap-2 flex-1 bg-michelangeloorange rounded-xl shadow-xl p-5">
+          <h1 className="font-bold text-lg md:text-2xl">SPELLING</h1>
+          <h2 className="text-sm md:text-lg text-charcoal">Current Level</h2>
+          <div className="bg-linear-to-r from-lgreen from-10% to-white to-10% rounded-xl shadow-xl font-black">
             {auth.user.spelling_level}
-          </span>
+          </div>
         </div>
       </div>
 
-      <div className="w-full max-w-5xl mx-auto rounded-xl bg-darkvanilla p-6 flex flex-col gap-5 justify-between items-center text-2xl">
+      <div className="w-full max-w-5xl mx-auto rounded-xl shadow-xl bg-darkvanilla p-6 flex flex-col gap-5 justify-between items-center text-2xl">
         {/* badges */}
         <h1 className="w-full">Badges</h1>
         <div className="flex justify-evenly gap-5">
