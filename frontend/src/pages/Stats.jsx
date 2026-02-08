@@ -37,7 +37,7 @@ const Stats = () => {
     console.log(`earned badges: ${earnedBadgesList}; levelSum: ${levelSum}`);
 
     for (let i = 0; i < badgeCount; i++) {
-      if (badges[i][0] < badgeScore) {
+      if (badges[i][0] <= badgeScore) {
         earnedBadgesList.push(badges[i]);
       }
       setEarnedBadges(earnedBadgesList);
